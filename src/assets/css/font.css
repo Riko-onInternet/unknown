@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "UnknownSans";
+  src: local("UnknownSans"), 
+       url("../../../public/fonts/Mondapick.woff2") format("woff2"),
+       url("../../../public/fonts/Mondapick.woff") format("woff");
+}
+
