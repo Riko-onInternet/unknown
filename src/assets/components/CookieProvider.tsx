@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface CookieContextType {
   consent: boolean | null;
@@ -15,9 +15,13 @@ interface CookieContextType {
   setProfileImage: (image: string) => void;
 }
 
+interface CookieProviderProps {
+  children: ReactNode;
+}
+
 const CookieContext = createContext<CookieContextType | undefined>(undefined);
 
-export function CookieProvider({ children }) {
+export function CookieProvider({ children }: CookieProviderProps) {
   const [consent, setConsent] = useState(null); // Inizializza come null
   const [isSubtitlesEnabled, setIsSubtitlesEnabled] = useState(false);
   const [audioLanguage, setAudioLanguage] = useState("it"); // Cambiato da audioTrack a audioLanguage
