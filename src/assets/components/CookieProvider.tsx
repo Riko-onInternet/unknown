@@ -22,7 +22,7 @@ interface CookieProviderProps {
 const CookieContext = createContext<CookieContextType | undefined>(undefined);
 
 export function CookieProvider({ children }: CookieProviderProps) {
-  const [consent, setConsent] = useState(null); // Inizializza come null
+  const [consent, setConsent] = useState<boolean | null>(null); // Inizializza come null
   const [isSubtitlesEnabled, setIsSubtitlesEnabled] = useState(false);
   const [audioLanguage, setAudioLanguage] = useState("it"); // Cambiato da audioTrack a audioLanguage
   const [subtitleLanguage, setSubtitleLanguage] = useState("it"); // Stato separato per la lingua dei sottotitoli
