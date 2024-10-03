@@ -212,6 +212,8 @@ body {
 .modal-delete,
 .modal-change-avatar {
   background-color: var(--unknown-background) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .search-tab-list {

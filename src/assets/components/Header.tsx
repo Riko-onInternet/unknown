@@ -620,7 +620,7 @@ export default function Header() {
         backdrop="blur"
         placement="top-center"
         scrollBehavior="inside"
-        classNames={{ base: "modal-change-avatar" }}
+        classNames={{ base: "modal-change-avatar mx-0" }}
         size="xl"
       >
         <ModalContent>
