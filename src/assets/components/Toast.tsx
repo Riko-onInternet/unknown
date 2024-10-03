@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Toast({ message, onClose }: { message: string, onClose: () => void }) {
   const [visible, setVisible] = useState(false);
-
+  // Funzione per mostrare il toast
   useEffect(() => {
     setVisible(true);
     const fadeOutTimeout = setTimeout(() => {
