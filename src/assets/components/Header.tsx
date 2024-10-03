@@ -84,7 +84,7 @@ export default function Header() {
     setSelectedImage(profileImage); // Aggiorna selectedImage quando profileImage cambia
   }, [profileImage]);
 
-  const handleImageSelect = (image) => {
+  const handleImageSelect = (image: string) => {
     setSelectedImage(image);
   };
 
