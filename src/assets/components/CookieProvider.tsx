@@ -2,7 +2,20 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-const CookieContext = createContext();
+interface CookieContextType {
+  consent: boolean | null;
+  giveConsent: () => void;
+  isSubtitlesEnabled: boolean;
+  setIsSubtitlesEnabled: (enabled: boolean) => void;
+  audioLanguage: string;
+  setAudioLanguage: (language: string) => void;
+  subtitleLanguage: string;
+  setSubtitleLanguage: (language: string) => void;
+  profileImage: string;
+  setProfileImage: (image: string) => void;
+}
+
+const CookieContext = createContext<CookieContextType | undefined>(undefined);
 
 export function CookieProvider({ children }) {
   const [consent, setConsent] = useState(null); // Inizializza come null
@@ -58,4 +71,10 @@ export function CookieProvider({ children }) {
   );
 }
 
-export const useCookie = () => useContext(CookieContext);
+export const useCookie = (): CookieContextType => {
+  const context = useContext(CookieContext);
+  if (!context) {
+    throw new Error("useCookie must be used within a CookieProvider");
+  }
+  return context;
+};
