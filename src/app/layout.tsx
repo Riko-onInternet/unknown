@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import "@/assets/css/globals.css";
 import "@/assets/css/font.css";
 
+import CookieConsent from "@/assets/components/CookieConsent";
+import { CookieProvider } from "@/assets/components/CookieProvider";
+
 export const metadata: Metadata = {
   title: "Unknown",
   // description: "Unknown",
@@ -16,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="it" className="antialiased dark">
       <body className="margin-menus">
-        {children}
+        <CookieProvider>
+          <CookieConsent />
+          {children}
+        </CookieProvider>
       </body>
     </html>
   );
