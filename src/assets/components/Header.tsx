@@ -179,8 +179,8 @@ export default function Header() {
     localStorage.setItem("subtitlesEnabled", JSON.stringify(newValue)); // Salva l'impostazione dei sottotitoli
   };
 
-  const handleAudioLanguageChange = (keys: Set<string>) => { // Cambia il tipo del parametro
-    const selectedLanguage = Array.from(keys)[0]; // Ottieni la chiave selezionata
+  const handleAudioLanguageChange = (keys: any) => { // Usa 'any' se non sei sicuro del tipo esatto
+    const selectedLanguage = Array.from(keys)[0] as string; // Ottieni la chiave selezionata
     setAudioLanguage(selectedLanguage);
     localStorage.setItem("audioLanguage", selectedLanguage);
   };
