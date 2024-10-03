@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 
 interface CookieContextType {
   consent: boolean | null;
+  setConsent: (consent: boolean | null) => void;
   giveConsent: () => void;
   isSubtitlesEnabled: boolean;
   setIsSubtitlesEnabled: (enabled: boolean) => void;
