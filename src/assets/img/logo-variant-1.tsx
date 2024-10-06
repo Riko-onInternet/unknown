@@ -1,11 +1,18 @@
-export default function LogoVariant1({ className }: { className: string }) {
+import Link from "next/link";
+
+export default function LogoVariant1({
+  className,
+  href = "#",
+}: {
+  className: string;
+  href?: string;
+}) {
   return (
-    <>
+    <Link href={href} className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         id="Livello_2"
         viewBox="0 0 993.71 189"
-        className={className}
       >
         <defs>
           <style>
@@ -72,6 +79,6 @@ export default function LogoVariant1({ className }: { className: string }) {
           />
         </g>
       </svg>
-    </>
+    </Link>
   );
 }

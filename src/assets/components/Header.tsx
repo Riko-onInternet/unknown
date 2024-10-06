@@ -6,10 +6,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 // Components
+import { useCookie } from "@/assets/components/CookieProvider";
 import LogoVariant1 from "@/assets/img/logo-variant-1";
 import Icon from "@/assets/img/icon";
 import Toast from "./Toast";
-import { useCookie } from "@/assets/components/CookieProvider";
 import predefinedImages from "@/assets/database/imagesProfile";
 
 // NextUI
@@ -37,7 +37,6 @@ import {
 // Icons
 import { FaSearch, FaBell, FaFilter } from "react-icons/fa";
 import { BsTrash3Fill } from "react-icons/bs";
-import { IoIosArrowDown } from "react-icons/io";
 import {
   RiArchiveStackFill,
   RiHome6Fill,
@@ -179,13 +178,13 @@ export default function Header() {
     localStorage.setItem("subtitlesEnabled", JSON.stringify(newValue)); // Salva l'impostazione dei sottotitoli
   };
 
-  const handleAudioLanguageChange = (keys: any) => { // Usa 'any' se non sei sicuro del tipo esatto
+  const handleAudioLanguageChange = (keys: any) => {
     const selectedLanguage = Array.from(keys)[0] as string; // Ottieni la chiave selezionata
     setAudioLanguage(selectedLanguage);
     localStorage.setItem("audioLanguage", selectedLanguage);
   };
 
-  const handleSubtitleLanguageChange = (keys: any) => { // Usa 'any' se non sei sicuro del tipo esatto
+  const handleSubtitleLanguageChange = (keys: any) => {
     const selectedLanguage = Array.from(keys)[0] as string; // Ottieni la chiave selezionata
     setSubtitleLanguage(selectedLanguage);
     localStorage.setItem("subtitleLanguage", selectedLanguage); // Salva l'impostazione della lingua dei sottotitoli
@@ -235,7 +234,7 @@ export default function Header() {
         <div className="container-header">
           <div className="menu-container">
             {/* Logo */}
-            <LogoVariant1 className="full-logo" />
+            <LogoVariant1 className="full-logo" href="/" />
 
             {/* Icon */}
             <Icon className="icon-logo" />
@@ -244,7 +243,14 @@ export default function Header() {
             <ul className="menu-items gap-2">
               {menuItems.map((item, index) => (
                 <li key={index}>
-                  <a href={item.link}>{item.name}</a>
+                  <Link
+                    href={item.link}
+                    className={`menu-item${
+                      item.active ? " menu-item_active" : ""
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -259,7 +265,7 @@ export default function Header() {
             </button>
 
             {/* Notification */}
-            <Dropdown placement="bottom-end">
+            <Dropdown placement="bottom" className="notification-dropdown">
               <DropdownTrigger>
                 <div className="text-white p-1 text-xl cursor-pointer">
                   <FaBell />
@@ -288,19 +294,17 @@ export default function Header() {
 
             {/* Profile */}
             <div className="flex items-center gap-2">
-              <Dropdown placement="bottom-end" className="profile-dropdown">
+              <Dropdown placement="bottom" className="profile-dropdown">
                 <DropdownTrigger>
                   <div className="profile flex items-center gap-2 backdrop-blur-md p-2 rounded-full cursor-pointer">
                     <button tabIndex={0} className="avatar">
                       <img
-                        src={profileImage} // Usa l'URL dell'immagine del profilo salvata
+                        src={profileImage}
                         className="flex object-cover w-full h-full transition-opacity !duration-500 opacity-0 data-[loaded=true]:opacity-100"
                         alt=""
                         data-loaded="true"
                       />
                     </button>
-
-                    <IoIosArrowDown />
                   </div>
                 </DropdownTrigger>
                 <DropdownMenu
