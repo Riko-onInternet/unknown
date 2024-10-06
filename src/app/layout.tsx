@@ -4,7 +4,7 @@ import "@/assets/css/font.css";
 
 import CookieConsent from "@/assets/components/CookieConsent";
 import { CookieProvider } from "@/assets/components/CookieProvider";
-
+import KeyBlocker from "@/assets/components/KeyBlock";
 export const metadata: Metadata = {
   title: "Unknown",
   // description: "Unknown",
@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="it" className="antialiased dark">
       <body className="margin-menus">
         <CookieProvider>
+          <KeyBlocker />
           <CookieConsent />
           {children}
         </CookieProvider>
