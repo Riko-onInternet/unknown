@@ -21,6 +21,27 @@ import {
 
 import { RiStarFill, RiPlayLargeFill, RiBookmarkFill } from "react-icons/ri";
 
+// Definisci l'interfaccia per i dati della serie
+interface Serie {
+  Name: string;
+  autor: { name: string; img: string }[];
+  linkName: string;
+  id: string;
+  startYear: string;
+  endYear: string;
+  seasons: number;
+  sinossi: string;
+  apiRate: string;
+  linguage: string;
+  subtitle: { name: string; id: string }[];
+  cast: { name: string; id: string }[];
+  generi: { name: string; id: string }[];
+  episodes: { season: number; episodes: { title: string; id: string; link: string }[] }[];
+  bg: string;
+  m3u8: string;
+  tabs: { title: string; content?: { title: string }[] }[];
+}
+
 // Funzione per simulare il recupero dei dati dal database
 const fetchSeriesData = async () => {
   // Simula una chiamata API al tuo database
@@ -188,7 +209,7 @@ export default function Home() {
 
   const [stTADC, setStTADC] = useState(1);
 
-  const [series, setSeries] = useState([]);
+  const [series, setSeries] = useState<Serie[]>([]);
   const [selectedSeason, setSelectedSeason] = useState({});
   const [openModalId, setOpenModalId] = useState<string | null>(null);
 
@@ -199,7 +220,7 @@ export default function Home() {
       const initialSeasons = data.reduce((acc, serie) => {
         acc[serie.id] = 1; // Stagione iniziale
         return acc;
-      }, {});
+      }, {} as Record<string, number>);
       setSelectedSeason(initialSeasons);
     };
 
