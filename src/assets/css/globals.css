@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-primary {
+  color: var(--unknown-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--unknown-background-secondary) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--unknown-background-tertiary) !important;
+}
+
 /* Seleziona la barra di scorrimento orizzontale */
 ::-webkit-scrollbar {
   height: 6px;
@@ -55,6 +67,8 @@
   --unknown-error-10: #f3123010;
   --unknown-error-hover: #b30e24;
   
+  /* IMDb */
+  --unknown-imdb: #F5C518;
 }
 
 *:focus-visible {

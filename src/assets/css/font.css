@@ -5,3 +5,11 @@
        url("../../../public/fonts/Mondapick.woff") format("woff");
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"), 
+       url("../../../public/fonts/poppins-regular.woff2") format("woff2"),
+       url("../../../public/fonts/poppins-regular.woff") format("woff");
+}
+
+

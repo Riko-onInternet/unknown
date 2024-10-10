@@ -1,0 +1,114 @@
+.TADC_bg {
+  opacity: 0.5;
+  background-size: cover;
+  background-position: center;
+}
+
+.TADC_bg {
+  background-image: url("https://streamy.sirv.com/modal-series/TADC/background.jpg");
+}
+
+
+.bg-series {
+  width: 100%;
+  height: 400px;
+  z-index: -1;
+}
+
+.modButtonClose {
+  button[aria-label="Close"] {
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--unknown-primary-70);
+    }
+  }
+}
+
+.content-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bg-tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.bg-tabs > div {
+  background-color: var(--unknown-background-secondary);
+}
+
+.modal-body-series {
+  background-color: var(--unknown-background);
+  padding: 0;
+}
+
+.linear-bottom {
+  background: linear-gradient(0deg, var(--unknown-background-tertiary) 0%, transparent 50%);
+}
+
+.rating-IMDb {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: normal;
+
+  & svg {
+    color: var(--unknown-imdb);
+  }
+}
+
+.autor {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+
+  & img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+  }
+}
+
+.input-series {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 12px;
+
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 18px;
+    outline: 2px solid var(--unknown-primary);
+    transition: background-color 0.3s ease;
+
+    &[aria-label="play"] {
+      background-color: var(--unknown-background-secondary);
+      padding: 8px 20px;
+      border-radius: 9999px;
+
+      &:hover {
+        background-color: var(--unknown-primary-hover);
+      }
+    }
+
+    &[aria-label="list"] {
+      background-color: var(--unknown-background-secondary);
+      padding: 12px;
+      border-radius: 9999px;
+
+      &:hover {
+        background-color: var(--unknown-primary-hover);
+      }
+    }
+  }
+}
