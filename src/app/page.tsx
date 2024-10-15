@@ -19,7 +19,12 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 
-import { RiStarFill, RiPlayLargeFill, RiBookmarkFill } from "react-icons/ri";
+import {
+  RiStarFill,
+  RiPlayLargeFill,
+  RiBookmarkFill,
+  RiBookmarkLine,
+} from "react-icons/ri";
 
 // Definisci l'interfaccia per i dati della serie
 interface Serie {
@@ -38,12 +43,18 @@ interface Serie {
   generi: { name: string; id: string }[];
   episodes: {
     season: number;
-    episodes: { title: string; id: string; link: string }[];
+    episodes: {
+      [x: string]: string | undefined;
+      title: string;
+      id: string;
+      link: string;
+    }[];
   }[];
   bg: string;
   m3u8: string;
   tabs: { title: string; content?: { title: string }[] }[];
-  IMDbID: string; // Aggiungi questa linea
+  IMDbID: string;
+  trailer: { title: string; link: string; img: string }[];
 }
 
 // Funzione per simulare il recupero dei dati dal database
@@ -125,21 +136,51 @@ const fetchSeriesData = async () => {
           season: 1,
           episodes: [
             {
-              title: "Episodio 1",
+              nEp: 1,
+              title: "Il mondo fantastico (Pilota)",
               id: "TADC_S1E1",
-              link: "https://www.google.com",
+              description:
+                "Una ragazza viene intrappolata in un circo completamente digitale e cercherà in ogni modo di scappare da quel assurdo posto",
+              link: "",
+              minutes: "23",
+              img: "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAra5fd3lv0Z1TDLqHCE-sxqamH_w",
             },
             {
+              nEp: 2,
               title: "Episodio 2",
-              id: "TADC_S1E1",
-              link: "https://www.google.com",
+              id: "TADC_S1E2",
+              description: "//",
+              link: "",
+              minutes: "23",
+              img: "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCXa2VADexFr0_birYRwhPVqiWteg",
             },
             {
+              nEp: 3,
               title: "Episodio 3",
-              id: "TADC_S1E1",
-              link: "https://www.google.com",
+              id: "TADC_S1E3",
+              description: "//",
+              link: "",
+              minutes: "23",
+              img: "https://i.ytimg.com/vi/bKjfw77cxeQ/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAtm6Qzbkr-6I0dePJ_xZxp6Dt5Q",
             },
           ],
+        },
+      ],
+      trailer: [
+        {
+          title: "THE AMAZING DIGITAL CIRCUS [OFFICIAL TRAILER]",
+          link: "https://youtu.be/iuaRQ5NQFq8?si=ckcUWWjeKCVlCxzc",
+          img: "https://i.ytimg.com/vi/iuaRQ5NQFq8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA7-4GAlf0ZWgUs5G-JQH5KbVo_aA",
+        },
+        {
+          title: "UP NEXT ON THE AMAZING DIGITAL CIRCUS...",
+          link: "https://youtu.be/rafQwY9n_M0?si=eMKIatcLSsZ7bVZE",
+          img: "https://i.ytimg.com/vi/rafQwY9n_M0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_lcYOO1gnMp6iIsW3VzeQFbTXpg",
+        },
+        {
+          title: "VIEWER BEWARE... DIGITAL CIRCUS EPISODE 3 IS NEAR!",
+          link: "https://youtu.be/x287j7Vby0U?si=nflBGft-VB61euiL",
+          img: "https://i.ytimg.com/vi/x287j7Vby0U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLChKwhc5h2EHt9kPT7PKEH1j43NHQ",
         },
       ],
 
@@ -178,14 +219,6 @@ const fetchSeriesData = async () => {
   ];
 };
 export default function Home() {
-  const {
-    isOpen: isOpenTADC,
-    onOpen: onOpenTADC,
-    onOpenChange: onOpenChangeTADC,
-  } = useDisclosure();
-
-  const [stTADC, setStTADC] = useState(1);
-
   const [series, setSeries] = useState<Serie[]>([]);
   const [selectedSeason, setSelectedSeason] = useState<Record<string, number>>(
     {}
@@ -195,11 +228,14 @@ export default function Home() {
   useEffect(() => {
     const loadSeries = async () => {
       const data = await fetchSeriesData();
-      setSeries(data);
-      const initialSeasons = data.reduce((acc, serie) => {
-        acc[serie.id] = 1; // Stagione iniziale
-        return acc;
-      }, {} as Record<string, number>);
+      setSeries(data as unknown as Serie[]);
+      const initialSeasons = (data as unknown as Serie[]).reduce(
+        (acc, serie) => {
+          acc[serie.id] = 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
       setSelectedSeason(initialSeasons);
     };
 
@@ -279,20 +315,23 @@ export default function Home() {
                         <p>Play</p>
                       </button>
                       <button aria-label="list">
-                        <RiBookmarkFill />
+                        <RiBookmarkLine />
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="px-4 pb-3">
+              <div className="px-4 pb-3 prova">
                 <Tabs radius="full" size="lg" className="bg-tabs">
                   {serie.tabs.map((tab, index) => (
                     <Tab key={index} title={tab.title} className="px-3">
                       <div className="content-tab">
                         {tab.title === "Panoramica" && (
-                          <>
+                          <div
+                            className="max-w-[500px] w-full mx-auto mt-2"
+                            id="content-panoramica"
+                          >
                             {Array.isArray(tab.content) &&
                               tab.content.map((content) => (
                                 <div
@@ -353,11 +392,11 @@ export default function Home() {
                                   )}
                                 </div>
                               ))}
-                          </>
+                          </div>
                         )}
 
                         {tab.title === "Episodi" && (
-                          <>
+                          <div className="mt-4">
                             {serie.episodes.length > 1 && (
                               <div className="w-full flex justify-end">
                                 <Dropdown>
@@ -389,7 +428,7 @@ export default function Home() {
                             )}
 
                             <div
-                              className="flex flex-col"
+                              className="flex flex-col gap-4"
                               id="content-episodes"
                             >
                               {serie.episodes
@@ -398,17 +437,56 @@ export default function Home() {
                                     season.season === selectedSeason[serie.id]
                                 )
                                 ?.episodes.map((episode) => (
-                                  <div key={episode.id}>
-                                    <p>{episode.title}</p>
-                                    <a href={episode.link}>Guarda</a>
-                                  </div>
+                                  <a
+                                    // href={episode.link}
+                                    key={episode.id}
+                                    className="w-full flex items-start flex-col md:flex-row gap-2 episode-card"
+                                  >
+                                    <div className="flex flex-col items-center sm:flex-row gap-4 w-full pr-3">
+                                      <p className="hidden sm:flex poppins text-3xl w-[36px] h-[36px] items-center justify-center">
+                                        {episode.nEp}
+                                      </p>
+                                      <img
+                                        src={episode.img}
+                                        alt={episode.title}
+                                        className="w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px]"
+                                      />
+                                      <div className="flex flex-col gap-2 h-max w-full">
+                                        <p className="flex justify-between items-center">
+                                          <span className="text-lg sm:text-xl leading-normal">
+                                            <span className="sm:hidden poppins">
+                                              {episode.nEp}.&nbsp;
+                                            </span>
+                                            <span className="font-bold">
+                                              {episode.title}
+                                            </span>
+                                          </span>
+                                          <span className="text-sm sm:text-lg hidden md:block">
+                                            <span className="poppins">
+                                              {episode.minutes}
+                                            </span>
+                                            min
+                                          </span>
+                                        </p>
+                                        <p className="leading-normal md:hidden">
+                                          {episode.minutes}min
+                                        </p>
+                                        <p className="hidden sm:line-clamp-2">
+                                          {episode.description}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <p className="leading-normal sm:hidden">
+                                      {episode.description}
+                                    </p>
+                                  </a>
                                 ))}
                             </div>
-                          </>
+                          </div>
                         )}
 
                         {tab.title === "Dettagli" && (
-                          <div className="flex justify-center flex-col sm:flex-row gap-4 sm:gap-10">
+                          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 max-w-[500px] w-full mx-auto">
                             <div className="flex flex-col">
                               <p className="text-lg font-bold text-primary leading-normal">
                                 Cast
@@ -469,8 +547,26 @@ export default function Home() {
                         )}
 
                         {tab.title === "Trailer" && (
-                          <div>
-                            <p>Trailer della serie...</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-4 mt-4">
+                            {serie.trailer
+                              .slice()
+                              .reverse()
+                              .map((trailer) => (
+                                <a
+                                  href={trailer.link}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  key={trailer.title}
+                                  className="flex flex-col gap-2 max-w-[366px] mx-auto"
+                                >
+                                  <img
+                                    src={trailer.img}
+                                    alt={trailer.title}
+                                    className="rounded-lg mx-auto"
+                                  />
+                                  <p className="text-center">{trailer.title}</p>
+                                </a>
+                              ))}
                           </div>
                         )}
                       </div>

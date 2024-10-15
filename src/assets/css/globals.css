@@ -14,6 +14,10 @@
   background-color: var(--unknown-background-tertiary) !important;
 }
 
+.poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+
 /* Seleziona la barra di scorrimento orizzontale */
 ::-webkit-scrollbar {
   height: 6px;
@@ -363,6 +367,7 @@ body {
 
   .icon_cookie {
     max-width: 263px;
+    width: 100%;
   }
 }
 

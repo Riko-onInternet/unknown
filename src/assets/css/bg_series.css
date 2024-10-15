@@ -26,7 +26,7 @@
   }
 }
 
-.content-tab {
+.content-tab, #content-panoramica {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -112,3 +112,20 @@
     }
   }
 }
+
+.episode-card {
+  --unknown-episode-card-padding: 12px;
+  padding: var(--unknown-episode-card-padding);
+  border-radius: 12px;
+  background-color: var(--unknown-background-secondary);
+
+  & img {
+    border-radius: 6px;
+  }
+}
+
+.prova > div {
+  overflow-x: auto;
+}
+
+
