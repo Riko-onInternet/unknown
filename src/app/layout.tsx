@@ -23,7 +23,6 @@ export default function RootLayout({
           <KeyBlocker />
           <CookieConsent />
           {children}
-          <Analytics />
         </CookieProvider>
       </body>
     </html>
