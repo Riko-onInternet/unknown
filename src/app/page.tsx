@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/assets/components/Header";
 import "@/assets/css/bg_series.css";
 import seriesDatabase from "@/assets/database/series-database";
+
 import {
   Modal,
   ModalContent,
@@ -17,6 +18,7 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownItem,
+  Skeleton,
 } from "@nextui-org/react";
 
 import {
@@ -69,6 +71,7 @@ export default function Home() {
     {}
   );
   const [openModalId, setOpenModalId] = useState<string | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const loadSeries = async () => {
@@ -312,8 +315,10 @@ export default function Home() {
                                       <img
                                         src={`/img/modalseries/${episode.img}.avif`}
                                         alt={episode.title}
-                                        className="w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px]"
+                                        className={`w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px] ${imageLoaded ? '' : 'hidden'}`}
+                                        onLoad={() => setImageLoaded(true)}
                                       />
+                                      {!imageLoaded && <Skeleton className="w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px]" />}
                                       <div></div>
                                       <div className="flex flex-col gap-2 h-max w-full">
                                         <p className="flex justify-between items-center">
