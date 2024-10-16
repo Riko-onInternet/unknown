@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import Header from "@/assets/components/Header";
 import "@/assets/css/bg_series.css";
-
+import seriesDatabase from "@/assets/database/series-database";
 import {
   Modal,
   ModalContent,
@@ -60,164 +60,9 @@ interface Serie {
 // Funzione per simulare il recupero dei dati dal database
 const fetchSeriesData = async () => {
   // Simula una chiamata API al tuo database
-  return [
-    {
-      Name: "The Amazing Digital Circus",
-      autor: [
-        {
-          name: "Gooseworx",
-          img: "https://yt3.googleusercontent.com/PQepFs89fnCtJ76MehFBBaY5bmjiDWYgQWQacKnXmxtqZKliEoLvjcErPhO5dXhyr_S8N9hB=s176-c-k-c0x00ffffff-no-rj-mo",
-        },
-      ],
-      linkName: "the-amazing-digital-circus",
-      id: "TADC",
-      startYear: "2024",
-      endYear: "",
-      seasons: 1,
-      sinossi:
-        "The Amazing Digital Circus è una commedia dark psicologica e parla di una donna che rimane intrappolata in un folle mondo virtuale insieme ad altri cinque umani e ora è soggetta ai capricci di una stravagante intelligenza artificiale e ai propri traumi personali.",
-      apiRate: "",
-      linguage: "Inglese",
-      IMDbID: "tt1234567",
-      bg: "TADC_bg",
-      m3u8: "tadc.m3u8",
-      subtitle: [
-        {
-          name: "Italiano",
-          id: "Italiano",
-        },
-        {
-          name: "Inglese",
-          id: "Inglese",
-        },
-      ],
-      cast: [
-        {
-          name: "Lizzie Freeman",
-          id: "nm5213242",
-        },
-        {
-          name: "Michael Kovach",
-          id: "nm7693469",
-        },
-        {
-          name: "Marissa Lenti",
-          id: "nm6705101",
-        },
-      ],
-      generi: [
-        {
-          name: "Animazione",
-          id: "Animazione",
-        },
-        {
-          name: "Avventura",
-          id: "Avventura",
-        },
-        {
-          name: "Commedia",
-          id: "Commedia",
-        },
-        {
-          name: "Fantastico",
-          id: "Fantastico",
-        },
-        {
-          name: "Horror",
-          id: "Horror",
-        },
-        {
-          name: "Fantascienza",
-          id: "Fantascienza",
-        },
-      ],
-      episodes: [
-        {
-          season: 1,
-          episodes: [
-            {
-              nEp: 1,
-              title: "Il mondo fantastico (Pilota)",
-              id: "TADC_S1E1",
-              description:
-                "Una ragazza viene intrappolata in un circo completamente digitale e cercherà in ogni modo di scappare da quel assurdo posto",
-              link: "",
-              minutes: "23",
-              img: "https://i.ytimg.com/vi/HwAPLk_sQ3w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAra5fd3lv0Z1TDLqHCE-sxqamH_w",
-            },
-            {
-              nEp: 2,
-              title: "Episodio 2",
-              id: "TADC_S1E2",
-              description: "//",
-              link: "",
-              minutes: "23",
-              img: "https://i.ytimg.com/vi/4ofJpOEXrZs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCXa2VADexFr0_birYRwhPVqiWteg",
-            },
-            {
-              nEp: 3,
-              title: "Episodio 3",
-              id: "TADC_S1E3",
-              description: "//",
-              link: "",
-              minutes: "23",
-              img: "https://i.ytimg.com/vi/bKjfw77cxeQ/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAtm6Qzbkr-6I0dePJ_xZxp6Dt5Q",
-            },
-          ],
-        },
-      ],
-      trailer: [
-        {
-          title: "THE AMAZING DIGITAL CIRCUS [OFFICIAL TRAILER]",
-          link: "https://youtu.be/iuaRQ5NQFq8?si=ckcUWWjeKCVlCxzc",
-          img: "https://i.ytimg.com/vi/iuaRQ5NQFq8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA7-4GAlf0ZWgUs5G-JQH5KbVo_aA",
-        },
-        {
-          title: "UP NEXT ON THE AMAZING DIGITAL CIRCUS...",
-          link: "https://youtu.be/rafQwY9n_M0?si=eMKIatcLSsZ7bVZE",
-          img: "https://i.ytimg.com/vi/rafQwY9n_M0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_lcYOO1gnMp6iIsW3VzeQFbTXpg",
-        },
-        {
-          title: "VIEWER BEWARE... DIGITAL CIRCUS EPISODE 3 IS NEAR!",
-          link: "https://youtu.be/x287j7Vby0U?si=nflBGft-VB61euiL",
-          img: "https://i.ytimg.com/vi/x287j7Vby0U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLChKwhc5h2EHt9kPT7PKEH1j43NHQ",
-        },
-      ],
-
-      tabs: [
-        {
-          title: "Panoramica",
-          content: [
-            {
-              title: "Stagioni",
-            },
-            {
-              title: "Anno",
-            },
-            {
-              title: "Sinossi",
-            },
-            {
-              title: "Cast",
-            },
-            {
-              title: "Generi",
-            },
-          ],
-        },
-        {
-          title: "Episodi",
-        },
-        {
-          title: "Dettagli",
-        },
-        {
-          title: "Trailer",
-        },
-      ],
-    },
-  ];
+  return seriesDatabase;
 };
+
 export default function Home() {
   const [series, setSeries] = useState<Serie[]>([]);
   const [selectedSeason, setSelectedSeason] = useState<Record<string, number>>(
@@ -269,6 +114,7 @@ export default function Home() {
           className="modButtonClose overflow-hidden my-1"
           placement="top"
           scrollBehavior="outside"
+          backdrop="blur"
         >
           <ModalContent>
             <ModalBody className="modal-body-series bg-tertiary">
@@ -286,13 +132,26 @@ export default function Home() {
                       />
                     </div>
 
-                    {Array.isArray(serie.autor) &&
+                    {Array.isArray(serie.autor) && serie.autor.length > 1 ? (
+                      <div className="flex gap-2">
+                        {serie.autor.map((author, index) => (
+                          <div key={author.name} className="author">
+                            <img
+                              src={"/img/creators/" + author.img + ".avif"}
+                            />
+                            <p>{author.name}</p>
+                            {index < serie.autor.length - 1 && <span>&</span>}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
                       serie.autor.map((author) => (
                         <div key={author.name} className="author">
-                          <img src={author.img} />
+                          <img src={"/img/creators/" + author.img + ".avif"} />
                           <p>{author.name}</p>
                         </div>
-                      ))}
+                      ))
+                    )}
 
                     <a
                       href={"https://www.imdb.com/title/" + serie.IMDbID}
@@ -438,19 +297,24 @@ export default function Home() {
                                 )
                                 ?.episodes.map((episode) => (
                                   <a
-                                    // href={episode.link}
+                                    href={episode.link}
                                     key={episode.id}
-                                    className="w-full flex items-start flex-col md:flex-row gap-2 episode-card"
+                                    className={`w-full flex items-start flex-col md:flex-row gap-2 episode-card ${
+                                      episode.link === ""
+                                        ? "episode-disabled"
+                                        : ""
+                                    }`}
                                   >
-                                    <div className="flex flex-col items-center sm:flex-row gap-4 w-full pr-3">
+                                    <div className="flex flex-col items-center sm:flex-row gap-4 w-full md:pr-3">
                                       <p className="hidden sm:flex poppins text-3xl w-[36px] h-[36px] items-center justify-center">
                                         {episode.nEp}
                                       </p>
                                       <img
-                                        src={episode.img}
+                                        src={`/img/modalseries/${episode.img}.avif`}
                                         alt={episode.title}
                                         className="w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px]"
                                       />
+                                      <div></div>
                                       <div className="flex flex-col gap-2 h-max w-full">
                                         <p className="flex justify-between items-center">
                                           <span className="text-lg sm:text-xl leading-normal">

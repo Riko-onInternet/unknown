@@ -1,4 +1,4 @@
-.TADC_bg {
+.TADC_bg, .MurderDrones_bg {
   opacity: 0.5;
   background-size: cover;
   background-position: center;
@@ -6,6 +6,10 @@
 
 .TADC_bg {
   background-image: url("https://streamy.sirv.com/modal-series/TADC/background.jpg");
+}
+
+.MurderDrones_bg {
+  background-image: url("https://streamy.sirv.com/modal-series/MurderDrones/background.jpg");
 }
 
 

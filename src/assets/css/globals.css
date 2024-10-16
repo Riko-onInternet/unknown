@@ -648,3 +648,9 @@ body {
     border-color: var(--unknown-primary);
   }
 }
+
+.episode-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
