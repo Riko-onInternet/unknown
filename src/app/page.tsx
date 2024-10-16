@@ -129,7 +129,7 @@ export default function Home() {
                     <div className="w-[250px]">
                       <img
                         src={
-                          "https://streamy.sirv.com/logos/" + serie.id + ".png"
+                          "/img/modalseries/" + serie.id + "/logo.png"
                         }
                         alt={serie.Name}
                       />
@@ -184,7 +184,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="px-4 pb-3 prova">
+              <div className="px-4 pb-3">
                 <Tabs radius="full" size="lg" className="bg-tabs">
                   {serie.tabs.map((tab, index) => (
                     <Tab key={index} title={tab.title} className="px-3">
@@ -299,56 +299,67 @@ export default function Home() {
                                     season.season === selectedSeason[serie.id]
                                 )
                                 ?.episodes.map((episode) => (
-                                  <a
-                                    href={episode.link}
-                                    key={episode.id}
-                                    className={`w-full flex items-start flex-col md:flex-row gap-2 episode-card ${
-                                      episode.link === ""
-                                        ? "episode-disabled"
-                                        : ""
-                                    }`}
-                                  >
-                                    <div className="flex flex-col items-center sm:flex-row gap-4 w-full md:pr-3">
-                                      <p className="hidden sm:flex poppins text-3xl w-[36px] h-[36px] items-center justify-center">
-                                        {episode.nEp}
-                                      </p>
-                                      <img
-                                        src={`/img/modalseries/${episode.img}.avif`}
-                                        alt={episode.title}
-                                        className={`w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px] ${imageLoaded ? '' : 'hidden'}`}
-                                        onLoad={() => setImageLoaded(true)}
-                                      />
-                                      {!imageLoaded && <Skeleton className="w-full sm:h-[100px] sm:w-auto md:h-auto md:w-[150px]" />}
-                                      <div></div>
-                                      <div className="flex flex-col gap-2 h-max w-full">
-                                        <p className="flex justify-between items-center">
-                                          <span className="text-lg sm:text-xl leading-normal">
-                                            <span className="sm:hidden poppins">
-                                              {episode.nEp}.&nbsp;
-                                            </span>
-                                            <span className="font-bold">
-                                              {episode.title}
-                                            </span>
-                                          </span>
-                                          <span className="text-sm sm:text-lg hidden md:block">
-                                            <span className="poppins">
-                                              {episode.minutes}
-                                            </span>
-                                            min
-                                          </span>
+                                  <>
+                                    <a
+                                      href={episode.link}
+                                      key={episode.id}
+                                      className={`w-full h-auto sm:h-[140px] md:h-[110px] flex items-start flex-col md:flex-row gap-2 episode-card ${
+                                        episode.link === ""
+                                          ? "episode-disabled"
+                                          : ""
+                                      }`}
+                                    >
+                                      <div className="flex flex-col items-center sm:flex-row w-full h-full gap-4 md:pr-3">
+                                        <p className="hidden sm:flex poppins text-3xl max-w-[36px] w-full max-h-[36px] items-center justify-center">
+                                          {episode.nEp}
                                         </p>
-                                        <p className="leading-normal md:hidden">
-                                          {episode.minutes}min
-                                        </p>
-                                        <p className="hidden sm:line-clamp-2">
-                                          {episode.description}
-                                        </p>
+                                        <div className="w-full sm:h-[100px] sm:w-auto md:h-full md:w-[150px] aspect-video">
+                                          <Skeleton
+                                            className={`aspect-video w-full sm:w-auto md:w-[150px] rounded-[6px] ${
+                                              imageLoaded ? "hidden" : ""
+                                            }`}
+                                          />
+                                          <img
+                                            src={`/img/modalseries/${episode.img}.avif`}
+                                            alt={episode.title}
+                                            className={`w-full sm:h-[100px] sm:w-auto md:h-full md:w-[150px] ${
+                                              imageLoaded ? "" : "hidden"
+                                            }`}
+                                            onLoad={() => {
+                                              setImageLoaded(true);
+                                            }}
+                                          />
+                                        </div>
+                                        <div className="flex flex-col gap-2 h-max w-full md:w-[calc(100%-150px)]">
+                                          <p className="flex justify-between items-center">
+                                            <span className="text-lg sm:text-xl leading-normal">
+                                              <span className="sm:hidden poppins">
+                                                {episode.nEp}.&nbsp;
+                                              </span>
+                                              <span className="font-bold sm:line-clamp-1">
+                                                {episode.title}
+                                              </span>
+                                            </span>
+                                            <span className="text-sm sm:text-lg hidden md:block">
+                                              <span className="poppins">
+                                                {episode.minutes}
+                                              </span>
+                                              min
+                                            </span>
+                                          </p>
+                                          <p className="leading-normal md:hidden">
+                                            {episode.minutes}min
+                                          </p>
+                                          <p className="hidden sm:line-clamp-2">
+                                            {episode.description}
+                                          </p>
+                                        </div>
                                       </div>
-                                    </div>
-                                    <p className="leading-normal sm:hidden">
-                                      {episode.description}
-                                    </p>
-                                  </a>
+                                      <p className="leading-normal sm:hidden">
+                                        {episode.description}
+                                      </p>
+                                    </a>
+                                  </>
                                 ))}
                             </div>
                           </div>
@@ -429,7 +440,7 @@ export default function Home() {
                                   className="flex flex-col gap-2 max-w-[366px] mx-auto"
                                 >
                                   <img
-                                    src={trailer.img}
+                                    src={`/img/modalseries/${serie.id}/trailers/${trailer.img}.avif`}
                                     alt={trailer.title}
                                     className="rounded-lg mx-auto"
                                   />

@@ -9,7 +9,7 @@ const seriesDatabase = [
       },
     ],
     linkName: "the-amazing-digital-circus",
-    id: "TADC",
+    id: "tadc",
     startYear: "2023",
     endYear: "",
     seasons: 1,
@@ -117,7 +117,7 @@ const seriesDatabase = [
             title: "Caos tra i trasportatori!",
             id: "TADC_S1E2",
             description:
-              "La banda è incaricata di trasportare un camion pieno di sciroppo d'acido dai banditi, ma un incidente digitale porta Pomni e uno dei malviventi a scoprire una sconvolgente verità sulla sua vera natura.",
+              "La banda è incaricata di trasportare un camion pieno di sciroppo d'acido dai banditi, ma un incidente porta Pomni e uno dei malviventi a scoprire una sconvolgente verità sulla vita di uno dei due.",
             link: "#",
             minutes: "23",
             img: "tadc/episodes/s1/tadc_e2",
@@ -148,7 +148,12 @@ const seriesDatabase = [
       {
         title: "THE AMAZING DIGITAL CIRCUS [OFFICIAL TRAILER]",
         link: "https://youtu.be/iuaRQ5NQFq8?si=ckcUWWjeKCVlCxzc",
-        img: "https://i.ytimg.com/vi/iuaRQ5NQFq8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA7-4GAlf0ZWgUs5G-JQH5KbVo_aA",
+        img: "tadc_trailer",
+      },
+      {
+        title: "THE AMAZING DIGITAL CIRCUS mtg",
+        link: "",
+        img: "tadc_mtg",
       },
       {
         title: "UP NEXT ON THE AMAZING DIGITAL CIRCUS...",

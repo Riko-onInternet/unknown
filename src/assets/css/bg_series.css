@@ -5,18 +5,17 @@
 }
 
 .TADC_bg {
-  background-image: url("https://streamy.sirv.com/modal-series/TADC/background.jpg");
+  background-image: url("/img/modalseries/tadc/background/v1.avif");
 }
 
 .MurderDrones_bg {
-  background-image: url("https://streamy.sirv.com/modal-series/MurderDrones/background.jpg");
+  background-image: url("/img/modalseries/MurderDrones/background.jpg");
 }
 
 
 .bg-series {
   width: 100%;
   height: 400px;
-  z-index: -1;
 }
 
 .modButtonClose {
