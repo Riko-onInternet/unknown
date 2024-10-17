@@ -165,7 +165,7 @@ export default function Home() {
                       <RiStarFill className="size-6 mr-2" />
                       <p className="mt-1">8.1/10</p>
                       <img
-                        src="https://streamy.sirv.com/Imdb-logo.png"
+                        src="/img/IMDb_logo.png"
                         alt="IMDb"
                         className="w-[40px] ml-2.5"
                       />
@@ -437,14 +437,14 @@ export default function Home() {
                                   target="_blank"
                                   rel="noreferrer"
                                   key={trailer.title}
-                                  className="flex flex-col gap-2 max-w-[366px] mx-auto"
+                                  className="flex flex-col w-full sm:max-w-[366px] mx-auto bg-[var(--unknown-background-secondary)] p-4 rounded-xl"
                                 >
                                   <img
                                     src={`/img/modalseries/${serie.id}/trailers/${trailer.img}.avif`}
                                     alt={trailer.title}
                                     className="rounded-lg mx-auto"
                                   />
-                                  <p className="text-center">{trailer.title}</p>
+                                  <p className="text-center mt-4">{trailer.title}</p>
                                 </a>
                               ))}
                           </div>
