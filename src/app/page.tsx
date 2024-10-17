@@ -161,7 +161,7 @@ export default function Home() {
           delay: 3000, // 3 secondi
           disableOnInteraction: false,
         }} */
-        className="relative"
+        className="relative z-10"
       >
         {contentSlider.map((item) => (
           <SwiperSlide key={item.id}>
