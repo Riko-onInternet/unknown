@@ -128,9 +128,7 @@ export default function Home() {
                   <div className="flex flex-col gap-3 mb-6">
                     <div className="w-[250px]">
                       <img
-                        src={
-                          "/img/modalseries/" + serie.id + "/logo.png"
-                        }
+                        src={"/img/modalseries/" + serie.id + "/logo.png"}
                         alt={serie.Name}
                       />
                     </div>
@@ -444,7 +442,9 @@ export default function Home() {
                                     alt={trailer.title}
                                     className="rounded-lg mx-auto"
                                   />
-                                  <p className="text-center mt-4">{trailer.title}</p>
+                                  <p className="text-center mt-4">
+                                    {trailer.title}
+                                  </p>
                                 </a>
                               ))}
                           </div>

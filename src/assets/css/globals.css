@@ -52,12 +52,31 @@
 
   /* Background */
   --unknown-background: #1a1a1a;
+  --unknown-background-90: #1a1a1a90;
+  --unknown-background-80: #1a1a1a80;
+  --unknown-background-70: #1a1a1a70;
+  --unknown-background-60: #1a1a1a60;
+  --unknown-background-50: #1a1a1a50;
+  --unknown-background-40: #1a1a1a40;
+  --unknown-background-30: #1a1a1a30;
+  --unknown-background-20: #1a1a1a20;
+  --unknown-background-10: #1a1a1a10;
+
   --unknown-background-secondary: #242424;
   --unknown-background-tertiary: #111111;
 
   /* Text */
   --unknown-text-base: #ffffff;
-
+  --unknown-text-base-90: #ffffff90;
+  --unknown-text-base-80: #ffffff80;
+  --unknown-text-base-70: #ffffff70;
+  --unknown-text-base-60: #ffffff60;
+  --unknown-text-base-50: #ffffff50;
+  --unknown-text-base-40: #ffffff40;
+  --unknown-text-base-30: #ffffff30;
+  --unknown-text-base-20: #ffffff20;
+  --unknown-text-base-10: #ffffff10;
+  
   /* Error */
   --unknown-error: #f31230;
   --unknown-error-90: #f3123090;
@@ -114,10 +133,6 @@
     height: 100%;
   }
 
-  .margin-menus {
-    margin-top: 82px;
-    margin-bottom: 80px;
-  }
 }
 
 @media (min-width: 545px) {
@@ -132,9 +147,6 @@
     display: none;
   }
 
-  .margin-menus {
-    margin-top: 92px;
-  }
 }
 
 @media (min-width: 576px) {}
@@ -154,8 +166,14 @@
     display: none;
   }
 
-  .margin-menus {
-    margin-bottom: 0px;
+}
+
+.margin-menus {
+  padding-top: 82px;
+  margin-bottom: 80px;
+
+  @media (min-width: 545px) {
+    padding-top: 92px;
   }
 }
 
@@ -652,5 +670,34 @@ body {
 .episode-disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--unknown-background);
+  z-index: 999999999999999999;
+  overflow: hidden;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out, opacity .2s ease-in-out;
+  color: var(--unknown-text-base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  &.fade-out-loading {
+    background-color: var(--unknown-background-10);
+    color: var(--unknown-text-base-10);
+    & * {
+      opacity: 0.1;
+    }
+  }
+}
+
+.border-b-primary {
+  border-bottom-color: var(--unknown-primary) !important;
 }
 
