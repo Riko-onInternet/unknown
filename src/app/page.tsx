@@ -168,6 +168,7 @@ export default function Home() {
             <div
               onClick={() => openModal(item.id)}
               id="content-slider"
+              className="cursor-pointer"
             >
               <div className="content-img">
                 <img src={item.pc} alt="slider" aria-device="pc" />
@@ -496,7 +497,7 @@ export default function Home() {
                         )}
 
                         {tab.title === "Trailer" && (
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-4 mt-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-4 mt-4">
                             {serie.trailer
                               .slice()
                               .reverse()
