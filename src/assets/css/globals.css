@@ -177,6 +177,10 @@
   @media (min-width: 545px) {
     padding-top: 92px;
   }
+
+  @media (min-width: 810px) {
+    margin-bottom: 0;
+  }
 }
 
 html,

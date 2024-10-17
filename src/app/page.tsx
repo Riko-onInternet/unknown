@@ -1,10 +1,27 @@
 "use client";
+
+// React
 import { useState, useEffect } from "react";
 
-import Header from "@/assets/components/Header";
-import "@/assets/css/bg_series.css";
-import seriesDatabase from "@/assets/database/series-database";
+// import Swiper core and required modules
+import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+// Components
+import Header from "@/assets/components/Header";
+import seriesDatabase from "@/assets/database/series-database";
+import "@/assets/css/carousel.css";
+import "@/assets/css/bg_series.css";
+
+// NextUI
 import {
   Modal,
   ModalContent,
@@ -21,6 +38,7 @@ import {
   Skeleton,
 } from "@nextui-org/react";
 
+// Icons
 import {
   RiStarFill,
   RiPlayLargeFill,
@@ -98,15 +116,68 @@ export default function Home() {
     setOpenModalId(null);
   };
 
+  const contentSlider = [
+    {
+      title: "The Amazing Digital Circus",
+      id: "tadc",
+      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
+      mobile:
+        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
+      tablet:
+        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
+    },
+    {
+      title: "The Amazing Digital Circus",
+      id: "tadc",
+      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
+      mobile:
+        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
+      tablet:
+        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
+    },
+    {
+      title: "The Amazing Digital Circus",
+      id: "tadc",
+      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
+      mobile:
+        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
+      tablet:
+        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
+    },
+  ];
+
   return (
     <>
       <Header />
 
-      {series.map((serie) => (
-        <Button key={serie.id} onPress={() => openModal(serie.id)}>
-          {serie.Name}
-        </Button>
-      ))}
+      <Swiper
+        // install Swiper modules
+        modules={[Navigation, Pagination, A11y, Autoplay]}
+        spaceBetween={30}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        /* autoplay={{
+          delay: 3000, // 3 secondi
+          disableOnInteraction: false,
+        }} */
+        className="relative"
+      >
+        {contentSlider.map((item) => (
+          <SwiperSlide key={item.id}>
+            <div
+              onClick={() => openModal(item.id)}
+              id="content-slider"
+            >
+              <div className="content-img">
+                <img src={item.pc} alt="slider" aria-device="pc" />
+                <img src={item.tablet} alt="slider" aria-device="tablet" />
+                <img src={item.mobile} alt="slider" aria-device="mobile" />
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       {series.map((serie) => (
         <Modal
