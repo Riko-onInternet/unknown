@@ -76,7 +76,7 @@
   --unknown-text-base-30: #ffffff30;
   --unknown-text-base-20: #ffffff20;
   --unknown-text-base-10: #ffffff10;
-  
+
   /* Error */
   --unknown-error: #f31230;
   --unknown-error-90: #f3123090;
@@ -89,7 +89,7 @@
   --unknown-error-20: #f3123020;
   --unknown-error-10: #f3123010;
   --unknown-error-hover: #b30e24;
-  
+
   /* IMDb */
   --unknown-imdb: #F5C518;
 }
@@ -109,7 +109,8 @@
 
   .icon-logo {
     display: block;
-    & svg { 
+
+    & svg {
       width: 80px;
     }
   }
@@ -138,6 +139,7 @@
 @media (min-width: 545px) {
   .full-logo {
     display: block;
+
     & svg {
       height: 60px;
     }
@@ -270,8 +272,9 @@ body {
 .modal-change-avatar,
 .notification-dropdown {
   background-color: var(--unknown-background) !important;
+
   @media (min-width: 10px) {
-    margin: 0 ;
+    margin: 0;
   }
 }
 
@@ -678,10 +681,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--unknown-background);
+  background-color: var(--unknown-background-90);
+  backdrop-filter: blur(10px);
   z-index: 999999999999999999;
   overflow: hidden;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, opacity .2s ease-in-out;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out, opacity .2s ease-in-out, backdrop-filter .2s ease-in-out;
   color: var(--unknown-text-base);
   display: flex;
   justify-content: center;
@@ -691,6 +695,8 @@ body {
   &.fade-out-loading {
     background-color: var(--unknown-background-10);
     color: var(--unknown-text-base-10);
+    backdrop-filter: blur(0px);
+
     & * {
       opacity: 0.1;
     }
@@ -700,4 +706,3 @@ body {
 .border-b-primary {
   border-bottom-color: var(--unknown-primary) !important;
 }
-
