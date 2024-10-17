@@ -175,6 +175,7 @@
 
     @media (min-width: 545px) {
       left: var(--swiper-pagination-left-percent) !important;
+      transform: translateX(0);
     }
   }
 }
