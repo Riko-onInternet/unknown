@@ -9,8 +9,17 @@ import LoadingOverlay from "@/assets/components/loadingOverlay";
 
 export const metadata: Metadata = {
   title: "Unknown",
-  // description: "Unknown",
+  description: `Il nostro motto è: "Facciomo scoprire lo sconosciuto"`,
   robots: "noindex, nofollow",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({

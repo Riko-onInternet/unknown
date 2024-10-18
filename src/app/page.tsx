@@ -120,29 +120,16 @@ export default function Home() {
     {
       title: "The Amazing Digital Circus",
       id: "tadc",
-      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
-      mobile:
-        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
-      tablet:
-        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
+      pc: "/img/carousel/pc/tadc_slider_pc.avif",
+      mobile: "/img/carousel/mobile/tadc_slider_mobile.avif",
+      tablet: "/img/carousel/tablet/tadc_slider_tablet.avif",
     },
     {
-      title: "The Amazing Digital Circus",
-      id: "tadc",
-      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
-      mobile:
-        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
-      tablet:
-        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
-    },
-    {
-      title: "The Amazing Digital Circus",
-      id: "tadc",
-      pc: "https://unknownstream.sirv.com/slider/pc/tadc_slider_pc.avif",
-      mobile:
-        "https://unknownstream.sirv.com/slider/mobile/tadc_slider_mobile.avif",
-      tablet:
-        "https://unknownstream.sirv.com/slider/tablet/tadc_slider_tablet.avif",
+      title: "Murder Drones",
+      id: "murder_drones",
+      pc: "/img/carousel/pc/murder_drones_slider_pc.avif",
+      mobile: "/img/carousel/mobile/murder_drones_slider_mobile.avif",
+      tablet: "/img/carousel/tablet/murder_drones_slider_tablet.avif",
     },
   ];
 
@@ -156,11 +143,12 @@ export default function Home() {
         spaceBetween={30}
         slidesPerView={1}
         navigation
+        loop={true}
         pagination={{ clickable: true }}
-        /* autoplay={{
-          delay: 3000, // 3 secondi
+        autoplay={{
+          delay: 4000, // 4 secondi
           disableOnInteraction: false,
-        }} */
+        }}
         className="relative z-10"
       >
         {contentSlider.map((item) => (
@@ -208,7 +196,7 @@ export default function Home() {
                     {Array.isArray(serie.autor) && serie.autor.length > 1 ? (
                       <div className="flex gap-2">
                         {serie.autor.map((author, index) => (
-                          <div key={author.name} className="author">
+                          <div key={author.name} className="author w-max">
                             <img
                               src={"/img/creators/" + author.img + ".avif"}
                             />
@@ -219,7 +207,7 @@ export default function Home() {
                       </div>
                     ) : (
                       serie.autor.map((author) => (
-                        <div key={author.name} className="author">
+                        <div key={author.name} className="author w-max">
                           <img src={"/img/creators/" + author.img + ".avif"} />
                           <p>{author.name}</p>
                         </div>
@@ -230,7 +218,7 @@ export default function Home() {
                       href={"https://www.imdb.com/title/" + serie.IMDbID}
                       target="_blank"
                       rel="noreferrer"
-                      className="rating-IMDb"
+                      className="rating-IMDb w-max"
                     >
                       <RiStarFill className="size-6 mr-2" />
                       <p className="mt-1">8.1/10</p>
@@ -241,7 +229,7 @@ export default function Home() {
                       />
                     </a>
 
-                    <div className="input-series">
+                    <div className="input-series w-max">
                       <button aria-label="play">
                         <RiPlayLargeFill />
                         <p>Play</p>

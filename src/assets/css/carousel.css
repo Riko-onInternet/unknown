@@ -94,17 +94,26 @@
     --swiper-pagination-left-percent: 1%;
   }
 
+  
+
   .swiper-button-next,
   .swiper-button-prev {
 
     color: #fff;
     background-color: #000;
+    border: 1px solid #fff;
     bottom: 0;
     top: auto;
     width: var(--swiper-height-width-button);
     height: var(--swiper-height-width-button);
     border-radius: 9999px;
-    border: 1px solid #fff;
+    transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    /* display: none !important; */
+
+    &:hover {
+      color: var(--unknown-primary);
+      border-color: var(--unknown-primary);
+    }
 
     &::after {
       font-size: 16px;
@@ -140,15 +149,15 @@
     }
 
     @media (min-width: 10px) {
-      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 5px);
+      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 10px);
     }
 
     @media (min-width: 545px) {
-      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 5px);
+      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 10px);
     }
 
     @media (min-width: 810px) {
-      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 5px);
+      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 10px);
     }
   }
 
@@ -156,17 +165,30 @@
     width: max-content !important;
     bottom: calc((var(--swiper-height-width-button) - 24px) / 2) !important;
     background-color: #00000080;
+    /* background-color: #f00; */
     border-radius: 9999px;
     padding: 0 10px;
+    left: auto;
+    /* height: 20px; */
 
     .swiper-pagination-bullet {
       background-color: #fff;
-      margin-bottom: 2px !important;
+      width: 12px;
+      height: 12px;
 
       &.swiper-pagination-bullet-active {
         background-color: var(--unknown-primary);
       }
     }
+
+    /* @media (min-width: 10px) {
+      right: calc(var(--swiper-button-right-percent));
+    }
+
+    @media (min-width: 545px) {
+      right: calc(var(--swiper-button-right) + var(--swiper-button-right-percent) + var(--swiper-height-width-button) + 5px + var(--swiper-height-width-button) + 0.5%);;
+    } */
+    
 
     @media (min-width: 10px) {
       left: 50% !important;
