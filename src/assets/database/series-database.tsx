@@ -106,7 +106,7 @@ const seriesDatabase = [
         id: "Thriller",
       },
     ],
-    episodes: [
+    episodes: [-
       {
         season: 1,
         episodes: [

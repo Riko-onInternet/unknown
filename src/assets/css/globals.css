@@ -98,6 +98,10 @@
   outline: none;
 }
 
+img {
+  user-select: none;
+}
+
 @media (min-width: 10px) {
   .container-header {
     padding: 16px 24px;
