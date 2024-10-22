@@ -8,7 +8,7 @@ const seriesDatabase = [
         img: "gooseworx",
       },
     ],
-    linkName: "the-amazing-digital-circus",
+    linkName: "the_amazing_digital_circus",
     id: "tadc",
     startYear: "2023",
     endYear: "",
@@ -106,37 +106,34 @@ const seriesDatabase = [
         id: "Thriller",
       },
     ],
-    episodes: [-
+    episodes: [
       {
         season: 1,
         episodes: [
           {
             nEp: 1,
             title: "Il nuovo mondo (Pilota)",
-            id: "TADC_S1E1",
+            id: "tadc_s1e1",
             description:
               "Una ragazza viene intrappolata in un circo completamente digitale e cercherà in ogni modo di scappare da quel assurdo posto.",
-            link: "#",
             minutes: "25",
             img: "tadc/episodes/s1/tadc_e1",
           },
           {
             nEp: 2,
             title: "Caos tra i trasportatori!",
-            id: "TADC_S1E2",
+            id: "tadc_s1e2",
             description:
               "Caine manda la banda in un'avventura a caccia di banditi nel regno di Candy Canyon; Pomni deve aiutare uno dei personaggi del mondo digitale a superare un'improvvisa crisi esistenziale.",
-            link: "#",
             minutes: "25",
             img: "tadc/episodes/s1/tadc_e2",
           },
           {
             nEp: 3,
             title: "Il mistero di Mildenhall Manor",
-            id: "TADC_S1E3",
+            id: "tadc_s1e3",
             description:
               "Kinger ottiene un fucile a pompa! Zooble va in terapia! Pomni va all'inferno! Tante cose interessanti.",
-            link: "#",
             minutes: "24",
             img: "tadc/episodes/s1/tadc_e3",
           },
@@ -145,7 +142,6 @@ const seriesDatabase = [
             title: "Episodio 4",
             id: "TADC_S1E4",
             description: "//",
-            link: "",
             minutes: "??",
             img: "TBA",
           },
@@ -247,7 +243,7 @@ const seriesDatabase = [
         img: "liam_vickers",
       },
     ],
-    linkName: "murder-drones",
+    linkName: "murder_drones",
     id: "murder_drones",
     startYear: "2021",
     endYear: "2024",
@@ -356,80 +352,72 @@ const seriesDatabase = [
           {
             nEp: 1,
             title: "Pilota",
-            id: "MD_S1E1",
+            id: "md_s1e1",
             description:
               "È un giorno normale per Uzi con i suoi compagni di scuola che non le danno rispetto e un padre che non sa badare a lei. Uzi si ritrova in una missione dopo che scatena un mostro gigante e incontra un amico di nome N.",
-            link: "#",
             minutes: "26",
             img: "murder_drones/episodes/s1/md_e1",
           },
           {
             nEp: 2,
             title: "Crepacuore",
-            id: "MD_S1E2",
+            id: "md_s1e2",
             description:
               "Uzi, N e V cercano un modo di fermare il mostro. Khan cerca di riallacciare i rapporti con sua figlia.",
-            link: "#",
             minutes: "17",
             img: "murder_drones/episodes/s1/md_e2",
           },
           {
             nEp: 3,
             title: "La proposta",
-            id: "MD_S1E3",
+            id: "md_s1e3",
             description:
               "Le sparizioni di robot sono aumentate e Uzi inizia a ipotizzare il responsabile; per capirlo, Uzi si imbatte in Lizzy e Doll; Uzi, N e V vanno al ballo di fine anno.",
-            link: "#",
             minutes: "18",
             img: "murder_drones/episodes/s1/md_e3",
           },
           {
             nEp: 4,
             title: "L'irritabilità",
-            id: "MD_S1E4",
+            id: "md_s1e4",
             description:
               "È giorno di campeggio per i robot, un giorno pieno di divertimento e zero pensieri ma Uzi non lo prenderà come il resto dei robot",
-            link: "#",
             minutes: "21",
             img: "murder_drones/episodes/s1/md_e4",
           },
           {
             nEp: 5,
             title: "Casa",
-            id: "MD_S1E5",
+            id: "md_s1e5",
             description:
               "Uzi e N devono recuperare dei ricordi ma intanto cominciano a capire degli oscuri segreti.",
-            link: "#",
             minutes: "19",
             img: "murder_drones/episodes/s1/md_e5",
           },
           {
             nEp: 6,
             title: "Casa",
-            id: "MD_S1E6",
+            id: "md_s1e6",
             description:
               "Uzi e il team si ritrovano in parti oscure della città e incontrano nuovi pericoli.",
-            link: "#",
             minutes: "21",
             img: "murder_drones/episodes/s1/md_e6",
           },
           {
             nEp: 7,
             title: "Casa",
-            id: "MD_S1E7",
+            id: "md_s1e7",
             description:
               "Dopo essersi addentrati nei livelli più profondi della terra, la squadra scoprirà che nell'oscurità della terra si nascondono altre verità/",
-            link: "#",
             minutes: "25",
             img: "murder_drones/episodes/s1/md_e7",
           },
           {
             nEp: 8,
             title: "Casa",
-            id: "MD_S1E8",
+            id: "md_s1e8",
             description:
               "Nel finale di serie di Murder Drones, Uzi e N affrontano Cyn in una battaglia epica che cambierà l'universo per sempre.",
-            link: "#",
             minutes: "20",
             img: "murder_drones/episodes/s1/md_e8",
           },

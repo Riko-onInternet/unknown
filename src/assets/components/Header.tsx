@@ -523,7 +523,7 @@ export default function Header() {
               <ModalBody className="flex flex-col gap-4">
                 {/* Lingua */}
                 <Select
-                  label="Traccia audio"
+                  label="Lingua audio"
                   disallowEmptySelection
                   labelPlacement="outside"
                   placeholder="Seleziona una lingua"

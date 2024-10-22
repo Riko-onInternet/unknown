@@ -14,6 +14,8 @@ interface CookieContextType {
   setSubtitleLanguage: (language: string) => void;
   profileImage: string;
   setProfileImage: (image: string) => void;
+  handleAudioLanguageChange: (language: string) => void;
+  handleSubtitlesToggle: (enabled: boolean) => void;
 }
 
 interface CookieProviderProps {
@@ -69,8 +71,34 @@ export function CookieProvider({ children }: CookieProviderProps) {
     localStorage.setItem("profileImage", profileImage); // Salva l'immagine del profilo
   };
 
+  // Funzione per gestire il cambio della lingua audio
+  const handleAudioLanguageChange = (language: string) => {
+    setAudioLanguage(language);
+    localStorage.setItem("audioLanguage", language); // Salva la lingua audio nei cookie
+  };
+
+  // Funzione per gestire il cambio dello stato dei sottotitoli
+  const handleSubtitlesToggle = (enabled: boolean) => {
+    setIsSubtitlesEnabled(enabled);
+    localStorage.setItem("subtitlesEnabled", JSON.stringify(enabled)); // Salva lo stato dei sottotitoli nei cookie
+  };
+
   return (
-    <CookieContext.Provider value={{ consent, setConsent, giveConsent, isSubtitlesEnabled, setIsSubtitlesEnabled, audioLanguage, setAudioLanguage, subtitleLanguage, setSubtitleLanguage, profileImage, setProfileImage }}>
+    <CookieContext.Provider value={{
+      consent,
+      setConsent,
+      giveConsent,
+      isSubtitlesEnabled,
+      setIsSubtitlesEnabled,
+      audioLanguage,
+      setAudioLanguage,
+      subtitleLanguage,
+      setSubtitleLanguage,
+      profileImage,
+      setProfileImage,
+      handleAudioLanguageChange,
+      handleSubtitlesToggle,
+    }}>
       {children}
     </CookieContext.Provider>
   );

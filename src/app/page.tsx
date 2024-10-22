@@ -2,6 +2,7 @@
 
 // React
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 // import Swiper core and required modules
 import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
@@ -359,7 +360,7 @@ export default function Home() {
                                 ?.episodes.map((episode) => (
                                   <>
                                     <a
-                                      href={episode.link}
+                                      href={`/${serie.linkName}/${selectedSeason[serie.id]}/${episode.id}`}
                                       key={episode.id}
                                       className={`w-full h-auto sm:h-[140px] md:h-[110px] flex items-start flex-col md:flex-row gap-2 episode-card ${
                                         episode.link === ""

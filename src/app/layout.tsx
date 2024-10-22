@@ -9,17 +9,18 @@ import LoadingOverlay from "@/assets/components/loadingOverlay";
 
 export const metadata: Metadata = {
   title: "Unknown",
-  description: `Il nostro motto è: "Facciomo scoprire lo sconosciuto"`,
+  description: `Il nostro motto è: "Facciamo scoprire lo sconosciuto"`,
   robots: "noindex, nofollow",
   icons: {
     icon: "/favicon.ico",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -29,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it" className="antialiased dark">
-      <body className="relative">
+      <body>
         <LoadingOverlay />
         <CookieProvider>
           <main className="margin-menus">
