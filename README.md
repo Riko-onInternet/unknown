@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Unknown - "Facciamo scoprire lo sconosciuto"
 
-## Getting Started
+Unknown è una piattaforma di streaming innovativa dedicata alla scoperta di contenuti cinematografici nascosti e poco conosciuti. Il nostro obiettivo è portare alla luce film, serie TV di nicchia che meritano di essere scoperti, ma che spesso rimangono nell'ombra dei grandi circuiti commerciali.
 
-First, run the development server:
+## La Nostra Missione
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Crediamo che esistano innumerevoli capolavori cinematografici che non ricevono l'attenzione che meritano. Unknown nasce per:
+- 🎯 Dare visibilità a contenuti di qualità poco conosciuti
+- 🌍 Promuovere la diversità culturale attraverso film internazionali
+- 🎬 Supportare registi emergenti e produzioni indipendenti
+- 🤝 Creare una comunità di appassionati di cinema d'autore
+- 💡 Ispirare gli spettatori con prospettive e storie uniche
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Caratteristiche Principali
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🎬 Streaming di contenuti in alta qualità
+- 🔍 Ricerca avanzata dei contenuti
+- 💾 Gestione della cronologia di visualizzazione
+- ❤️ Lista dei preferiti personalizzata
+- 📱 Design responsive per tutti i dispositivi
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tecnologie Utilizzate
 
-## Learn More
+- **Frontend**: Next.js, React, TailwindCSS
+- **Backend**: Node.js, API Routes di Next.js
+- **Database**: [specificare il database utilizzato]
 
-To learn more about Next.js, take a look at the following resources:
+## Categorie di Contenuti
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Film Indipendenti
+- Serie TV di Nicchia
+- Cortometraggi d'Autore
+- Film Internazionali
+- Cinema Sperimentale
+- Produzioni Underground
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Come Funziona
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Scopri**: Esplora la nostra curata selezione di contenuti attraverso categorie tematiche
+2. **Guarda**: Accedi a streaming di alta qualità dei contenuti selezionati
+3. **Condividi**: Partecipa alla community condividendo recensioni e suggerimenti
+4. **Contribuisci**: Suggerisci nuovi contenuti da aggiungere alla piattaforma

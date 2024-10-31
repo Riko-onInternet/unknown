@@ -17,6 +17,12 @@ const seriesDatabase = [
       "The Amazing Digital Circus è una commedia dark psicologica e parla di una donna che rimane intrappolata in un folle mondo virtuale insieme ad altri cinque umani e ora è soggetta ai capricci di una stravagante intelligenza artificiale e ai propri traumi personali.",
     apiRate: "",
     linguage: "Inglese",
+    audio: [
+      {
+        name: "Inglese",
+        id: "Inglese",
+      },
+    ],
     IMDbID: "tt1234567",
     bg: "TADC_bg",
     m3u8: "tadc.m3u8",
@@ -253,8 +259,14 @@ const seriesDatabase = [
     apiRate: "",
     IMDbID: "tt15599734",
     bg: "MurderDrones_bg",
-    m3u8: "murder-drones.m3u8",
+    m3u8: "md.m3u8",
     linguage: "Inglese",
+    audio: [
+      {
+        name: "Inglese",
+        id: "Inglese",
+      },
+    ],
     subtitle: [
       {
         name: "Italiano",

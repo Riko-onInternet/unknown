@@ -20,15 +20,30 @@ import {
   MdHeadphones,
 } from "react-icons/md";
 import { PiGearFill } from "react-icons/pi";
+import Hls from "hls.js";
+
+// Importa il hook per utilizzare il contesto
+import { useCookie } from "@/assets/components/CookieProvider"; // Assicurati che il percorso sia corretto
 
 export default function Player({
   videoSrc,
   typeVideo,
+  subtitleSrcEn,
+  subtitleSrcIt,
+  currentLanguage,
+  availableAudio,
+  currentAudio,
 }: {
   videoSrc: string;
   typeVideo: string;
+  subtitleSrcEn: string;
+  subtitleSrcIt: string;
+  currentLanguage: string;
+  availableAudio: { name: string; id: string }[];
+  currentAudio: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hls = useRef<Hls>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState([0, 0]);
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0);
@@ -38,6 +53,22 @@ export default function Player({
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [subtitlesActive, setSubtitlesActive] = useState(false);
   const [volume, setVolume] = useState(true);
+  const [subtitleTextEn, setSubtitleTextEn] = useState("");
+  const [subtitleTextIt, setSubtitleTextIt] = useState("");
+  const [subtitlesHidden, setSubtitlesHidden] = useState(false);
+  const {
+    subtitleLanguage,
+    setSubtitleLanguage,
+    isSubtitlesEnabled,
+    setIsSubtitlesEnabled,
+    setAudioLanguage,
+    audioLanguage,
+  } = useCookie();
+  const [selectedAudio, setSelectedAudio] = useState(audioLanguage);
+  const [buffered, setBuffered] = useState(0);
+
+  // Aggiorna l'interfaccia del componente per includere il riferimento al progress bar
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   // Converte il tempo in minuti e secondi
   const sec2Min = (sec: number) => {
@@ -72,33 +103,103 @@ export default function Player({
     }
   }, [isPlaying]);
 
-  // Cambia il tempo del video
-  const handleProgressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (videoRef.current) {
-      const newTime =
-        (event.target.valueAsNumber / 1000) * videoRef.current.duration; // Risoluzione aumentata
+  // Aggiungi questi stati
+  const [isDraggingProgress, setIsDraggingProgress] = useState(false);
+  const [isDraggingVolume, setIsDraggingVolume] = useState(false);
+
+  // Modifica la funzione handleProgressChange
+  const handleProgressChange = (event: React.MouseEvent<HTMLDivElement>) => {
+    updateVideoProgress(event.clientX);
+  };
+
+  // Aggiungi queste nuove funzioni per il trascinamento della progress bar
+  const handleProgressMouseDown = () => {
+    setIsDraggingProgress(true);
+  };
+
+  const handleProgressMouseUp = () => {
+    setIsDraggingProgress(false);
+  };
+
+  const handleProgressMouseMove = (event: MouseEvent) => {
+    if (isDraggingProgress) {
+      updateVideoProgress(event.clientX);
+    }
+  };
+
+  const updateVideoProgress = (clientX: number) => {
+    if (videoRef.current && progressBarRef.current) {
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, x / rect.width));
+      const newTime = percentage * videoRef.current.duration;
       videoRef.current.currentTime = newTime;
     }
   };
 
-  // Aggiorna il progresso del video
+  // Simili funzioni per il volume
+  const handleVolumeMouseDown = () => {
+    setIsDraggingVolume(true);
+  };
+
+  const handleVolumeMouseUp = () => {
+    setIsDraggingVolume(false);
+  };
+
+  const handleVolumeMouseMove = (event: MouseEvent) => {
+    if (isDraggingVolume) {
+      updateVolume(event.clientX);
+    }
+  };
+
+  const updateVolume = (clientX: number) => {
+    if (videoRef.current && volumeBarRef.current) {
+      const rect = volumeBarRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, x / rect.width));
+      videoRef.current.volume = percentage;
+      setVolume(percentage > 0);
+    }
+  };
+
+  // Aggiungi un useEffect per gestire gli eventi del mouse
+  useEffect(() => {
+    const handleMouseUp = () => {
+      setIsDraggingProgress(false);
+      setIsDraggingVolume(false);
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      handleProgressMouseMove(event);
+      handleVolumeMouseMove(event);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDraggingProgress, isDraggingVolume]);
+
+  // Modifica la funzione handleTimeUpdate
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const currentProgress =
-        (videoRef.current.currentTime / videoRef.current.duration) * 1000; // Risoluzione aumentata
+        (videoRef.current.currentTime / videoRef.current.duration) * 100;
       setProgress(currentProgress);
       const { min, sec } = sec2Min(videoRef.current.currentTime);
-      setCurrentTime([min, sec]); // Aggiorna il tempo attuale con valori numerici
+      setCurrentTime([min, sec]);
 
-      // Aggiorna lo stile del range input
-      const rangeInput = document.querySelector(
-        `.progress-bar input[type="range"]`
-      );
-      if (rangeInput) {
-        const percentage = (currentProgress / 1000) * 100;
-        (
-          rangeInput as HTMLInputElement
-        ).style.background = `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${percentage}%, var(--bg-track) ${percentage}%, var(--bg-track) 100%)`;
+      // Aggiorna lo stile della progress bar
+      if (progressBarRef.current) {
+        const progressFill = progressBarRef.current.querySelector(
+          ".progress-fill"
+        ) as HTMLElement;
+        if (progressFill) {
+          progressFill.style.width = `${currentProgress}%`;
+        }
       }
     }
   };
@@ -149,7 +250,9 @@ export default function Player({
 
   // Funzione per gestire il click sul bottone dei sottotitoli
   const handleSubtitlesToggle = () => {
-    setSubtitlesActive(!subtitlesActive);
+    const newValue = !subtitlesActive;
+    setSubtitlesActive(newValue);
+    setIsSubtitlesEnabled(newValue);
   };
 
   // Funzione per spostare il video indietro di 10 secondi
@@ -303,8 +406,222 @@ export default function Player({
     changeVolume,
   ]);
 
+  useEffect(() => {
+    if (Hls.isSupported() && videoRef.current) {
+      const hlsInstance = new Hls();
+      hlsInstance.loadSource(videoSrc);
+      hlsInstance.attachMedia(videoRef.current);
+      (hls as any).current = hlsInstance;
+    } else if (videoRef.current && videoRef.current.canPlayType(typeVideo)) {
+      videoRef.current.src = videoSrc;
+    }
+
+    return () => {
+      if (hls.current) {
+        hls.current.destroy();
+      }
+    };
+  }, [videoSrc, typeVideo]);
+
+  // Modifica l'useEffect per gestire entrambe le tracce di sottotitoli
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      const trackEn = videoElement.textTracks[0];
+      const trackIt = videoElement.textTracks[1];
+
+      // Imposta entrambe le tracce come "showing" per ricevere gli eventi
+      trackEn.mode = "showing";
+      trackIt.mode = "showing";
+
+      trackEn.oncuechange = function () {
+        const activeCue = trackEn.activeCues?.[0];
+        if (activeCue && "text" in activeCue) {
+          setSubtitleTextEn((activeCue.text as string) ?? "");
+        } else {
+          setSubtitleTextEn("");
+        }
+      };
+
+      trackIt.oncuechange = function () {
+        const activeCue = trackIt.activeCues?.[0];
+        if (activeCue && "text" in activeCue) {
+          setSubtitleTextIt((activeCue.text as string) ?? "");
+        } else {
+          setSubtitleTextIt("");
+        }
+      };
+    }
+  }, []);
+
+  // Effetto per gestire la sidebar
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | undefined;
+    const body = document.body;
+
+    const handleMouseMove = () => {
+      console.log("🖱️ Mouse moved");
+      const controlsContainer = document.querySelector(".controls-container");
+      const subtitlesText = document.querySelector(".subtitles-container");
+      const menuTop = document.querySelector(".menu-top");
+
+      if (controlsContainer && subtitlesText && menuTop) {
+        controlsContainer.classList.remove("hide-controls");
+        subtitlesText.classList.remove("hide-controls");
+        menuTop.classList.remove("hide-controls");
+        body.classList.remove("hide-cursor");
+      }
+
+      clearTimeout(timeoutId);
+
+      if (isPlaying) {
+        timeoutId = setTimeout(() => {
+          const controlsContainer = document.querySelector(
+            ".controls-container"
+          );
+          const subtitlesText = document.querySelector(".subtitles-container");
+          const menuTop = document.querySelector(".menu-top");
+
+          if (controlsContainer && subtitlesText && menuTop) {
+            controlsContainer.classList.add("hide-controls");
+            subtitlesText.classList.add("hide-controls");
+            menuTop.classList.add("hide-controls");
+            body.classList.add("hide-cursor");
+          }
+        }, 2000);
+      }
+    };
+
+    const handlePlayStateChange = (event: Event) => {
+      if (event.type === "play") {
+        timeoutId = setTimeout(() => {
+          const controlsContainer = document.querySelector(
+            ".controls-container"
+          );
+          const subtitlesText = document.querySelector(".subtitles-container");
+          const menuTop = document.querySelector(".menu-top");
+
+          if (controlsContainer && subtitlesText && menuTop) {
+            controlsContainer.classList.add("hide-controls");
+            subtitlesText.classList.add("hide-controls");
+            menuTop.classList.add("hide-controls");
+            body.classList.add("hide-cursor");
+          }
+        }, 2000);
+      } else if (event.type === "pause") {
+        const controlsContainer = document.querySelector(".controls-container");
+        const subtitlesText = document.querySelector(".subtitles-container");
+        const menuTop = document.querySelector(".menu-top");
+
+        if (controlsContainer && subtitlesText && menuTop) {
+          controlsContainer.classList.remove("hide-controls");
+          subtitlesText.classList.remove("hide-controls");
+          menuTop.classList.remove("hide-controls");
+          body.classList.remove("hide-cursor");
+        }
+        clearTimeout(timeoutId);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    videoRef.current?.addEventListener("play", handlePlayStateChange);
+    videoRef.current?.addEventListener("pause", handlePlayStateChange);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      videoRef.current?.removeEventListener("play", handlePlayStateChange);
+      videoRef.current?.removeEventListener("pause", handlePlayStateChange);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isPlaying]);
+
+  // Funzione per cambiare la lingua dei sottotitoli e aggiornare il cookie
+  const changeSubtitleLanguage = (language: string) => {
+    setSubtitleLanguage(language); // Aggiorna il contesto e il cookie
+    // Qui potresti anche aggiornare il percorso dei sottotitoli se necessario
+  };
+
+  // Sincronizza lo stato locale con quello del contesto
+  useEffect(() => {
+    setSubtitlesActive(isSubtitlesEnabled);
+  }, [isSubtitlesEnabled]);
+
+  // Aggiungi questa funzione per gestire il click sul video
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Sincronizza lo stato locale con quello dei cookie
+  useEffect(() => {
+    setSelectedAudio(audioLanguage);
+  }, [audioLanguage]);
+
+  // Funzione per gestire il cambio dell'audio
+  const handleAudioChange = (audioId: string) => {
+    setAudioLanguage(audioId);
+    setSelectedAudio(audioId);
+  };
+
+  // Aggiungi questa funzione per gestire il buffering
+  const handleProgress = () => {
+    if (videoRef.current && videoRef.current.buffered.length > 0) {
+      const bufferedEnd = videoRef.current.buffered.end(
+        videoRef.current.buffered.length - 1
+      );
+      const duration = videoRef.current.duration;
+      const bufferedPercentage = (bufferedEnd / duration) * 100;
+
+      const progressBar = document.querySelector(
+        'input[type="range"]'
+      ) as HTMLInputElement;
+      if (progressBar) {
+        progressBar.style.setProperty(
+          "--buffered-percentage",
+          `${bufferedPercentage}%`
+        );
+      }
+      setBuffered(bufferedPercentage);
+    }
+  };
+
+  // Aggiungi l'evento progress al video
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener("progress", handleProgress);
+
+      return () => {
+        video.removeEventListener("progress", handleProgress);
+      };
+    }
+  }, []);
+
+  // Aggiungi questa nuova funzione per gestire il click sulla barra del volume
+  const handleVolumeClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (videoRef.current && volumeBarRef.current) {
+      const rect = volumeBarRef.current.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const percentage = x / rect.width;
+      const newVolume = Math.max(0, Math.min(1, percentage));
+      videoRef.current.volume = newVolume;
+      setVolume(newVolume > 0);
+    }
+  };
+
+  // Aggiungi questo ref
+  const volumeBarRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="video-container">
+    <div className="video-container overflow-hidden">
       <div className="menu-top">
         <a href="/" className="back-button" title="Torna alla Home">
           <FaArrowLeft />
@@ -315,23 +632,29 @@ export default function Player({
         {/* Tempo */}
         <div className="minutes-container">
           <span>
-            {formatTime(currentTime[0])}:{formatTime(currentTime[1])}
+            {isNaN(currentTime[0]) || isNaN(currentTime[1])
+              ? "00:00"
+              : `${formatTime(currentTime[0])}:${formatTime(currentTime[1])}`}
           </span>
           <span>
-            {formatTime(duration[0])}:{formatTime(duration[1])}
+            {isNaN(duration[0]) || isNaN(duration[1])
+              ? "00:00"
+              : `${formatTime(duration[0])}:${formatTime(duration[1])}`}
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="progress-bar">
-          <input
-            type="range"
-            min="0"
-            max="1000"
-            id="progress-bar"
-            value={progress}
-            onChange={handleProgressChange}
-          />
+        <div
+          className="progress-bar my-2"
+          ref={progressBarRef}
+          onClick={handleProgressChange}
+          onMouseDown={handleProgressMouseDown}
+        >
+          <div className="progress-background" />
+          <div className="progress-buffer" style={{ width: `${buffered}%` }} />
+          <div className="progress-fill" style={{ width: `${progress}%` }}>
+            <div className="progress-thumb" />
+          </div>
         </div>
 
         {/* Controlli */}
@@ -339,7 +662,13 @@ export default function Player({
           {/* Bottoni a sinistra */}
           <div className="flex items-center justify-start gap-4">
             {/* Pausa / Play */}
-            <button type="button" onClick={handlePlayPause}>
+            <button
+              type="button"
+              onClick={(e) => {
+                handlePlayPause();
+                e.currentTarget.blur();
+              }}
+            >
               {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
 
@@ -369,29 +698,59 @@ export default function Player({
 
             {/* Volume */}
             <div className="flex items-center gap-4">
-              <button type="button" id="volume" onClick={handleMuteToggle}>
+              <button
+                type="button"
+                id="volume"
+                onClick={(e) => {
+                  handleMuteToggle();
+                  e.currentTarget.blur();
+                }}
+              >
                 {!volume ? <MdVolumeOff /> : <MdVolumeUp />}
               </button>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                onChange={handleVolumeChange}
+              <div
                 className="volume-bar"
-              />
+                ref={volumeBarRef}
+                onClick={handleVolumeClick}
+                onMouseDown={handleVolumeMouseDown}
+              >
+                <div className="progress-background"></div>
+                <div
+                  className="progress-fill"
+                  style={{
+                    width: `${
+                      videoRef.current?.volume
+                        ? videoRef.current.volume * 100
+                        : 100
+                    }%`,
+                  }}
+                >
+                  <div className="progress-thumb"></div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Bottoni a destra */}
           <div className="flex flex-row-reverse items-center justify-end gap-4">
-            <button type="button" onClick={handleFullscreen} id="fullscreen">
+            <button
+              type="button"
+              onClick={(e) => {
+                handleFullscreen();
+                e.currentTarget.blur();
+              }}
+              id="fullscreen"
+            >
               <MdFullscreen className="icon-fullscreen" />
             </button>
 
             <button
               type="button"
               id="settings"
-              onClick={toggleSidebar}
+              onClick={(e) => {
+                toggleSidebar();
+                e.currentTarget.blur();
+              }}
               className={`transition-all duration-300 ease-in-out ${
                 isSidebarVisible ? "rotate-45" : ""
               }`}
@@ -402,7 +761,10 @@ export default function Player({
             <button
               type="button"
               id="subtitles"
-              onClick={handleSubtitlesToggle}
+              onClick={(e) => {
+                handleSubtitlesToggle();
+                e.currentTarget.blur();
+              }}
             >
               <MdSubtitles />
               <div
@@ -415,25 +777,56 @@ export default function Player({
         </div>
       </div>
 
-      <div
-        className={`
-          subtitles-text
-          ${subtitlesActive ? "" : " hidden"}
-        `}
-      >
-        <p>Sottotitoli</p>
-      </div>
-
-      {/* Video */}
+      {/* Video con entrambe le tracce */}
       <video
         className="video-player"
         ref={videoRef}
         onTimeUpdate={handleTimeUpdate}
+        onProgress={handleProgress}
+        onClick={handleVideoClick}
+        src={videoSrc}
       >
-        <source src={videoSrc} type={typeVideo} />
+        <track
+          src={subtitleSrcEn}
+          kind="subtitles"
+          srcLang="en"
+          label="English"
+        />
+        <track
+          src={subtitleSrcIt}
+          kind="subtitles"
+          srcLang="it"
+          label="Italiano"
+        />
       </video>
 
-      {/* Sidebar subtitles */}
+      {/* Container dei sottotitoli con la classe active basata su subtitlesActive */}
+      <div
+        className={`subtitles-container${subtitlesActive ? " active" : ""}${
+          subtitlesHidden ? " hide-controls" : ""
+        }`}
+      >
+        <div
+          className={`subtitles-text subtitles-en${
+            currentLanguage === "en" ? " visible" : ""
+          }`}
+        >
+          <p>
+            <span dangerouslySetInnerHTML={{ __html: subtitleTextEn }} />
+          </p>
+        </div>
+        <div
+          className={`subtitles-text subtitles-it${
+            currentLanguage === "it" ? " visible" : ""
+          }`}
+        >
+          <p>
+            <span dangerouslySetInnerHTML={{ __html: subtitleTextIt }} />
+          </p>
+        </div>
+      </div>
+
+      {/* Sidebar */}
       <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
         <Tabs aria-label="Options" isVertical>
           <Tab
@@ -477,10 +870,22 @@ export default function Player({
           >
             <div className="flex flex-col gap-2">
               <p>Sottotitoli</p>
-              <button type="button" className="subtitles-button active">
+              <button
+                type="button"
+                className={`subtitles-button ${
+                  subtitleLanguage === "it" ? "active" : ""
+                }`}
+                onClick={() => changeSubtitleLanguage("it")}
+              >
                 Italiano
               </button>
-              <button type="button" className="subtitles-button">
+              <button
+                type="button"
+                className={`subtitles-button ${
+                  subtitleLanguage === "en" ? "active" : ""
+                }`}
+                onClick={() => changeSubtitleLanguage("en")}
+              >
                 Inglese
               </button>
             </div>
@@ -497,12 +902,18 @@ export default function Player({
           >
             <div className="flex flex-col gap-2">
               <p>Audio</p>
-              <button type="button" className="audio-button active">
-                Italiano
-              </button>
-              <button type="button" className="audio-button">
-                Inglese
-              </button>
+              {availableAudio.map((audio) => (
+                <button
+                  key={audio.id}
+                  type="button"
+                  className={`audio-button ${
+                    selectedAudio === audio.id ? "active" : ""
+                  }`}
+                  onClick={() => handleAudioChange(audio.id)}
+                >
+                  {audio.name}
+                </button>
+              ))}
             </div>
           </Tab>
         </Tabs>

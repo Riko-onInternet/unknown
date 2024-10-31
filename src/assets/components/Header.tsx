@@ -7,8 +7,7 @@ import Link from "next/link";
 
 // Components
 import { useCookie } from "@/assets/components/CookieProvider";
-import LogoVariant1 from "@/assets/img/logo-variant-1";
-import Icon from "@/assets/img/icon";
+import Logo from "@/assets/components/Logo"
 import Toast from "./Toast";
 import predefinedImages from "@/assets/database/imagesProfile";
 
@@ -29,7 +28,6 @@ import {
   Tab,
   DropdownSection,
   Select,
-  SelectSection,
   SelectItem,
   Switch,
 } from "@nextui-org/react";
@@ -59,7 +57,6 @@ export default function Header() {
     comics: false,
   });
 
-  const [isHovered, setIsHovered] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const {
@@ -186,8 +183,7 @@ export default function Header() {
 
   const handleSubtitleLanguageChange = (keys: any) => {
     const selectedLanguage = Array.from(keys)[0] as string; // Ottieni la chiave selezionata
-    setSubtitleLanguage(selectedLanguage);
-    localStorage.setItem("subtitleLanguage", selectedLanguage); // Salva l'impostazione della lingua dei sottotitoli
+    setSubtitleLanguage(selectedLanguage); // Aggiorna la lingua dei sottotitoli nel contesto e nei cookie
   };
 
   const checkCookieConsent = () => {
@@ -234,10 +230,7 @@ export default function Header() {
         <div className="container-header">
           <div className="menu-container">
             {/* Logo */}
-            <LogoVariant1 className="full-logo" href="/" />
-
-            {/* Icon */}
-            <Icon className="icon-logo" />
+            <Logo />
 
             {/* Menu */}
             <ul className="menu-items gap-2">
@@ -543,12 +536,12 @@ export default function Header() {
                     labelPlacement="outside"
                     placeholder="Seleziona una lingua"
                     className="max-w-xs input-settings"
-                    selectedKeys={[subtitleLanguage]} // Usa selectedKeys per mantenere la selezione
+                    selectedKeys={[subtitleLanguage]}
                     onSelectionChange={handleSubtitleLanguageChange}
                     isDisabled={!isSubtitlesEnabled}
                   >
-                    <SelectItem key={"it"}>Italiano</SelectItem>
-                    <SelectItem key={"en"}>Inglese</SelectItem>
+                    <SelectItem key="it">Italiano</SelectItem>
+                    <SelectItem key="en">Inglese</SelectItem>
                   </Select>
 
                   {/* Attivare i sottotitoli */}

@@ -1,79 +1,3 @@
-input[type="range"] {
-  --color-primary: var(--unknown-primary);
-  --bg-track: #ffffff90;
-  --border-radius-thumb: 99999px;
-  --border-radius-track: 5px;
-
-  -webkit-appearance: none;
-  width: 100%;
-  background: var(--bg-track);
-  border-radius: var(--border-radius-track);
-
-  @media (min-height: 360px) {
-    --width-height-thumb: 15px;
-    height: 6px;
-  }
-
-  @media (min-height: 400px) {
-    --width-height-thumb: 20px;
-    height: 8px;
-  }
-
-  /* ----- Chrome, Safari, Opera ----- */
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: var(--width-height-thumb);
-    height: var(--width-height-thumb);
-    background-color: var(--color-primary);
-    cursor: pointer;
-    border-radius: var(--border-radius-thumb);
-    border: 0;
-    margin-top: -5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-
-  &::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: var(--bg-track);
-    border-radius: var(--border-radius-track);
-    border: 0;
-  }
-
-  &::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) var(--progress-percentage), var(--bg-track) var(--progress-percentage), var(--bg-track) 100%);
-  }
-
-  /* ----- Firefox ----- */
-  &::-moz-range-thumb {
-    width: var(--width-height-thumb);
-    height: var(--width-height-thumb);
-    background: var(--color-primary);
-    cursor: pointer;
-    border-radius: var(--border-radius-thumb);
-    border: 0;
-
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-
-  &::-moz-range-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: transparent;
-    border-radius: var(--border-radius-track);
-    border: 0;
-  }
-
-  &::-moz-range-progress {
-    background-color: var(--color-primary);
-    height: 8px;
-    border-radius: var(--border-radius-track);
-  }
-}
-
 #progress-bar {
   margin-bottom: 20px;
   margin-top: 10px;
@@ -124,6 +48,8 @@ input[type="range"] {
     display: flex;
     flex-direction: column;
     background-color: #00000070;
+    transform: translateY(0);
+    transition: transform 0.4s ease-in-out;
 
     .play-pause-button {
       display: flex;
@@ -169,6 +95,11 @@ input[type="range"] {
         }
       }
     }
+
+    &.hide-controls {
+      transform: translateY(152px);
+      transition: transform 0.5s ease;
+    }
   }
 
   .minutes-container {
@@ -185,11 +116,52 @@ input[type="range"] {
       font-size: 1rem;
     }
   }
-
 }
 
 .volume-bar {
-  width: 100px !important;
+  position: relative;
+  width: 100px;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-radius: var(--border-radius);
+
+  --width-height-thumb: 18px;
+  --border-radius: 99px;
+  --bg-track: #ffffff50;
+
+  .progress-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-track);
+    border-radius: var(--border-radius);
+  }
+
+  .progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--unknown-primary);
+    transition: width 0.1s ease-in-out;
+    border-radius: var(--border-radius);
+    
+    .progress-thumb {
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      width: var(--width-height-thumb);
+      height: var(--width-height-thumb);
+      background: var(--unknown-primary);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
 .menu-top {
@@ -200,6 +172,8 @@ input[type="range"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transform: translateY(0);
+  transition: transform 0.5s ease;
 
   @media (min-height: 360px) {
     font-size: 2rem;
@@ -224,6 +198,10 @@ input[type="range"] {
   & a {
     filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
   }
+
+  &.hide-controls {
+    transform: translateY(-100%);
+  }
 }
 
 .sidebar {
@@ -235,12 +213,12 @@ input[type="range"] {
   transition: right 0.3s ease-in-out;
   padding: 1rem;
   border-radius: 1rem;
-  
+
   @media (min-height: 360px) {
     bottom: 70px;
     min-height: 200px;
   }
-  
+
   @media (min-height: 400px) {
     bottom: 152px;
     min-height: 250px;
@@ -269,27 +247,136 @@ input[type="range"] {
   font-family: "poppins", sans-serif;
 }
 
-.subtitles-text {
+video::cue {
+  opacity: 0 !important;
+}
+
+.subtitles-container {
   position: absolute;
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.7);
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 0.5rem;
-  margin: 5px auto;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  z-index: 1;
+  transition: transform 0.5s ease;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
 
   @media (min-height: 360px) {
-    bottom: 70px;
+    transform: translateY(-130px);
+
+    &.hide-controls {
+      transform: translateY(0px);
+    }
   }
 
   @media (min-height: 400px) {
-    bottom: 152px;
+    transform: translateY(0);
+    height: 300px; /* Altezza maggiore per schermi più alti */
+
+    &.hide-controls {
+      transform: translateY(152px);
+    }
   }
 }
 
-.controls-and-subtitles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.subtitles-text {
+  opacity: 0;
+  position: absolute;
   width: 100%;
+  height: 100%; /* Ora funzionerà correttamente perché il container ha un'altezza */
+  transition: opacity 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  & p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 1rem;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+
+    @media (min-height: 360px) {
+      font-size: 1.5rem;
+      bottom: 10px;
+    }
+
+    @media (min-height: 400px) {
+      font-size: 2rem;
+      bottom: 150px;
+    }
+
+    & span {
+      background-color: #00000070;
+      border-radius: 4px;
+      display: inline-block;
+      max-width: 90%;
+    }
+  }
+}
+
+.hide-cursor {
+  cursor: none !important;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 99px;
+
+  --bg-track: #ffffff50;
+  --bg-buffer: #ffffff70;
+  --border-radius: 99px;
+
+  .progress-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-track);
+    border-radius: var(--border-radius);
+  }
+
+  .progress-buffer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--bg-buffer);
+    transition: width 0.1s ease-in-out;
+    border-radius: var(--border-radius);
+  }
+
+  .progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--unknown-primary);
+    transition: width 0.05s linear;
+    border-radius: var(--border-radius);
+    
+    .progress-thumb {
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      width: 18px;
+      height: 18px;
+      background: var(--unknown-primary);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
