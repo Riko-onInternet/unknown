@@ -109,6 +109,15 @@ export default function Home() {
     loadSeries();
   }, []);
 
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then((registration) => console.log('Service Worker registrato:', registration))
+        .catch((error) => console.log('Errore Service Worker:', error));
+    }
+  }, []);
+
   const openModal = (id: string) => {
     setOpenModalId(id);
   };

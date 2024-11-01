@@ -10,6 +10,7 @@ import LoadingOverlay from "@/assets/components/loadingOverlay";
 export const metadata: Metadata = {
   title: "Unknown",
   description: `Il nostro motto è: "Facciamo scoprire lo sconosciuto"`,
+  manifest: "/manifest.json",
   robots: "noindex, nofollow",
   icons: {
     icon: "/favicon.ico",
