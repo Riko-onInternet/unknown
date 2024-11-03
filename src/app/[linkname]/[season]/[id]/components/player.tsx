@@ -632,7 +632,7 @@ export default function Player({
         </a>
       </div>
 
-      <p className="w-full h-full flex items-center justify-center text-base">
+      <p className="w-full h-full flex items-center justify-center text-center text-base">
         Stiamo ancora sistemando il server dove mettere gli episodi, vi chiediamo
         di essere pazienti e di aspettare.
       </p>
