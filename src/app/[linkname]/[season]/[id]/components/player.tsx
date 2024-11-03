@@ -228,7 +228,7 @@ export default function Player({
   };
 
   // Aiuta su WebKit a vedere il colore dell'input range
-  useEffect(() => {
+  /* useEffect(() => {
     const volumeInput = document.querySelector(
       ".volume-bar"
     ) as HTMLInputElement;
@@ -241,7 +241,7 @@ export default function Player({
         volumeInput.style.background = `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%, var(--bg-track) 100%, var(--bg-track) 100%)`;
       }, 100); // Attendi un breve momento prima di impostare a 100
     }
-  }, []);
+  }, []); */
 
   // Funzione per alternare la visibilità della scheda
   const toggleSidebar = () => {
@@ -622,15 +622,20 @@ export default function Player({
 
   return (
     <div className="video-container overflow-hidden">
+      {/* ----- Menu top ----- */}
       <div className="menu-top">
+        <a href="/" className="back-button" title="Torna alla Home">
+          <FaArrowLeft />
+        </a>
         <a href="/" className="back-button" title="Torna alla Home">
           <FaArrowLeft />
         </a>
       </div>
 
+      {/* ----- Controlli ----- */}
       <div className="controls-container">
         {/* Tempo */}
-        <div className="minutes-container">
+        <div className="minutes">
           <span>
             {isNaN(currentTime[0]) || isNaN(currentTime[1])
               ? "00:00"
@@ -650,7 +655,6 @@ export default function Player({
           onClick={handleProgressChange}
           onMouseDown={handleProgressMouseDown}
         >
-          <div className="progress-background" />
           <div className="progress-buffer" style={{ width: `${buffered}%` }} />
           <div className="progress-fill" style={{ width: `${progress}%` }}>
             <div className="progress-thumb" />
@@ -658,9 +662,9 @@ export default function Player({
         </div>
 
         {/* Controlli */}
-        <div className="flex items-center justify-between pl-1 my-2">
+        <div className="controls">
           {/* Bottoni a sinistra */}
-          <div className="flex items-center justify-start gap-4">
+          <div className="left">
             {/* Pausa / Play */}
             <button
               type="button"
@@ -668,6 +672,7 @@ export default function Player({
                 handlePlayPause();
                 e.currentTarget.blur();
               }}
+              id="play_pause"
             >
               {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
@@ -714,7 +719,6 @@ export default function Player({
                 onClick={handleVolumeClick}
                 onMouseDown={handleVolumeMouseDown}
               >
-                <div className="progress-background"></div>
                 <div
                   className="progress-fill"
                   style={{
@@ -732,7 +736,7 @@ export default function Player({
           </div>
 
           {/* Bottoni a destra */}
-          <div className="flex flex-row-reverse items-center justify-end gap-4">
+          <div className="right">
             <button
               type="button"
               onClick={(e) => {
@@ -765,13 +769,11 @@ export default function Player({
                 handleSubtitlesToggle();
                 e.currentTarget.blur();
               }}
+              className={`transition-all duration-200 ease-in-out ${
+                subtitlesActive ? "text-[var(--color-primary)]" : ""
+              }`}
             >
               <MdSubtitles />
-              <div
-                className={`underline-subtitles ${
-                  subtitlesActive ? "active" : ""
-                }`}
-              ></div>
             </button>
           </div>
         </div>
@@ -800,14 +802,14 @@ export default function Player({
         />
       </video>
 
-      {/* Container dei sottotitoli con la classe active basata su subtitlesActive */}
+      {/* ----- Sottotitoli ----- */}
       <div
         className={`subtitles-container${subtitlesActive ? " active" : ""}${
           subtitlesHidden ? " hide-controls" : ""
         }`}
       >
         <div
-          className={`subtitles-text subtitles-en${
+          className={`subtitles-text ${
             currentLanguage === "en" ? " visible" : ""
           }`}
         >
@@ -816,7 +818,7 @@ export default function Player({
           </p>
         </div>
         <div
-          className={`subtitles-text subtitles-it${
+          className={`subtitles-text ${
             currentLanguage === "it" ? " visible" : ""
           }`}
         >
@@ -827,7 +829,7 @@ export default function Player({
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+      {/* <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
         <Tabs aria-label="Options" isVertical>
           <Tab
             key="velocita"
@@ -917,7 +919,7 @@ export default function Player({
             </div>
           </Tab>
         </Tabs>
-      </div>
+      </div> */}
     </div>
   );
 }
