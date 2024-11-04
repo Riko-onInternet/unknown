@@ -26,6 +26,12 @@ import Hls from "hls.js";
 // Importa il hook per utilizzare il contesto
 import { useCookie } from "@/assets/components/CookieProvider"; // Assicurati che il percorso sia corretto
 
+// Aggiungi questa interfaccia all'inizio del file, dopo gli import
+interface SafariHTMLVideoElement extends HTMLVideoElement {
+  webkitEnterFullscreen?: () => void;
+  webkitExitFullscreen?: () => void;
+}
+
 export default function Player({
   videoSrc,
   typeVideo,
@@ -220,29 +226,25 @@ export default function Player({
   // Fullscreen
   const handleFullscreen = () => {
     if (videoRef.current) {
+      const videoElement = videoRef.current as SafariHTMLVideoElement;
+      
       if (!document.fullscreenElement) {
-        videoRef.current.parentElement?.requestFullscreen();
+        // Controlla se il browser supporta webkitEnterFullscreen (iOS)
+        if (videoElement.webkitEnterFullscreen) {
+          videoElement.webkitEnterFullscreen();
+        } else {
+          // Fallback per altri browser
+          videoRef.current.parentElement?.requestFullscreen();
+        }
       } else {
-        document.exitFullscreen();
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          (document as any).webkitExitFullscreen();
+        }
       }
     }
   };
-
-  // Aiuta su WebKit a vedere il colore dell'input range
-  /* useEffect(() => {
-    const volumeInput = document.querySelector(
-      ".volume-bar"
-    ) as HTMLInputElement;
-    if (volumeInput) {
-      volumeInput.value = "99";
-      volumeInput.style.background = `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 99%, var(--bg-track) 99%, var(--bg-track) 100%)`;
-
-      setTimeout(() => {
-        volumeInput.value = "100";
-        volumeInput.style.background = `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%, var(--bg-track) 100%, var(--bg-track) 100%)`;
-      }, 100); // Attendi un breve momento prima di impostare a 100
-    }
-  }, []); */
 
   // Funzione per alternare la visibilità della scheda
   const toggleSidebar = () => {
