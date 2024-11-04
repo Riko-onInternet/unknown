@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useCookie } from "@/assets/components/CookieProvider";
 
-const cookieModal = document.querySelector("#cookie-modal");
 export default function CookieConsent() {
   const {
     consent,
@@ -26,15 +25,17 @@ export default function CookieConsent() {
     setIsVisible(false);
 
     setTimeout(() => {
+      const cookieModal = document.getElementById("cookie-modal");
       cookieModal?.classList.add("hidden");
-    }, 200);
+    }, 3);
   };
 
   const handleDecline = () => {
     setIsVisible(false);
     setTimeout(() => {
+      const cookieModal = document.getElementById("cookie-modal");
       cookieModal?.classList.add("hidden");
-    }, 200);
+    }, 3);
   };
 
   if (consent === null) return null;
