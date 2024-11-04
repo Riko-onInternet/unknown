@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { useCookie } from "@/assets/components/CookieProvider";
 
+const cookieModal = document.querySelector("#cookie-modal");
 export default function CookieConsent() {
-  const cookieModal = document.querySelector("#cookie-modal");
-   
   const {
     consent,
     giveConsent,
