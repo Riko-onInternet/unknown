@@ -6,92 +6,6 @@
   --border-radius: 99px;
 }
 
-@media (min-width: 300px) {
-  .video-container {
-    font-size: 1.5rem;
-  }
-
-  .menu-top {
-    padding: 0.5rem;
-  }
-
-  .back-button,
-  .next-episode {
-    font-size: 2rem;
-  }
-
-  .minutes {
-    font-size: 0.8rem;
-  }
-
-  .progress-bar {
-    height: 6px;
-  }
-
-  .progress-thumb {
-    width: 14px;
-    height: 14px;
-    right: -7px;
-  }
-}
-
-@media (min-width: 576px) {
-  .video-container {
-    font-size: 2rem;
-  }
-
-  .menu-top {
-    padding: 1rem;
-  }
-
-  .back-button,
-  .next-episode {
-    font-size: 2.5rem;
-  }
-
-  .minutes {
-    font-size: 1rem;
-  }
-
-  .progress-thumb {
-    width: 16px;
-    height: 16px;
-    right: -8px;
-  }
-}
-
-@media (min-width: 768px) {
-  .menu-top {
-    padding: 1.5rem;
-  }
-
-  .back-button,
-  .next-episode {
-    font-size: 3rem;
-  }
-
-  .minutes {
-    font-size: 1.2rem;
-  }
-
-  .progress-bar {
-    height: 8px;
-  }
-
-  .progress-thumb {
-    width: 18px;
-    height: 18px;
-    right: -9px;
-  }
-}
-
-@media (min-width: 992px) {
-  .back-button,
-  .next-episode {
-    font-size: 3.5rem;
-  }
-}
-
 /* ----- Global ----- */
 .margin-menus {
   margin: 0;
@@ -107,6 +21,14 @@
   position: relative;
   height: 100vh;
   background-color: #000;
+
+  @media (min-width: 300px) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 576px) {
+    font-size: 2rem;
+  }
 
   /* ----- Menu top ----- */
   & .menu-top {
@@ -131,10 +53,38 @@
       &:hover {
         scale: 1.1;
       }
+
+      @media (min-width: 300px) {
+        font-size: 2rem;
+      }
+
+      @media (min-width: 576px) {
+        font-size: 2.5rem;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 3rem;
+      }
+
+      @media (min-width: 992px) {
+        font-size: 3.5rem;
+      }
     }
 
     &.hide-controls {
       transform: translateY(-100%);
+    }
+
+    @media (min-width: 300px) {
+      padding: 0.5rem;
+    }
+
+    @media (min-width: 567px) {
+      padding: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      padding: 1.5rem;
     }
   }
 
@@ -164,6 +114,18 @@
       justify-content: space-between;
       width: 100%;
       font-family: "Poppins", sans-serif;
+
+      @media (min-width: 300px) {
+        font-size: 0.8rem;
+      }
+
+      @media (min-width: 576px) {
+        font-size: 1rem;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 1.2rem;
+      }
     }
 
     & .progress-bar {
@@ -172,6 +134,14 @@
       cursor: pointer;
       background: var(--bg-track);
       border-radius: var(--border-radius);
+
+      @media (min-width: 300px) {
+        height: 6px;
+      }
+
+      @media (min-width: 768px) {
+        height: 8px;
+      }
 
       & .progress-buffer {
         background: var(--bg-buffer);
@@ -200,6 +170,24 @@
           transform: translateY(-50%);
           opacity: 1;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+          @media (min-width: 300px) {
+            width: 14px;
+            height: 14px;
+            right: -7px;
+          }
+
+          @media (min-width: 576px) {
+            width: 16px;
+            height: 16px;
+            right: -8px;
+          }
+
+          @media (min-width: 768px) {
+            width: 18px;
+            height: 18px;
+            right: -9px;
+          }
         }
       }
     }
@@ -435,6 +423,7 @@
     }
   }
 
+  /* ----- Slidebar ----- */
   .sidebar {
     position: absolute;
     right: -100%;

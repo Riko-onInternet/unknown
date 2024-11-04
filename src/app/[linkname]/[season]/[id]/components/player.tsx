@@ -783,7 +783,7 @@ export default function Player({
         </div>
       </div>
 
-      {/* Video con entrambe le tracce */}
+      {/* ----- Video ----- */}
       <video
         className="video-player"
         ref={videoRef}
@@ -832,7 +832,7 @@ export default function Player({
         </div>
       </div>
 
-      {/* Sidebar */}
+      {/* ----- Sidebar ----- */}
       <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
         <Tabs aria-label="Options" isVertical>
           <Tab
