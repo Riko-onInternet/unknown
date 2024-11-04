@@ -168,26 +168,26 @@
           top: 50%;
           background: var(--bg-fill);
           border-radius: 50%;
-          transform: translateY(-50%);
+          transform: translate(50%, -50%);
           opacity: 1;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
           
           @media (min-width: 300px) {
             width: 14px;
             height: 14px;
-            right: -7px;
+            right: 0;
           }
           
           @media (min-width: 576px) {
             width: 16px;
             height: 16px;
-            right: -8px;
+            right: 0;
           }
           
           @media (min-width: 768px) {
             width: 18px;
             height: 18px;
-            right: -9px;
+            right: 0;
           }
         }
       }

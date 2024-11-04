@@ -633,9 +633,9 @@ export default function Player({
         </a>
       </div>
 
-      <p className="w-full h-full flex items-center justify-center text-center text-base">
+      {/* <p className="w-full h-full flex items-center justify-center text-center text-base">
         Se stai vedendo questo messaggio, significa che: o qualcosa è andato storto, o che non è possibile caricare l'episodio selezionato.
-      </p>
+      </p> */}
 
       {/* ----- Controlli ----- */}
       <div className="controls-container">
@@ -655,7 +655,7 @@ export default function Player({
 
         {/* Progress Bar */}
         <div
-          className="progress-bar my-2"
+          className="progress-bar"
           ref={progressBarRef}
           onClick={handleProgressChange}
           onMouseDown={handleProgressMouseDown}
