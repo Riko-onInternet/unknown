@@ -27,7 +27,7 @@ export default function CookieConsent() {
     setTimeout(() => {
       const cookieModal = document.getElementById("cookie-modal");
       cookieModal?.classList.add("hidden");
-    }, 3);
+    }, 300);
   };
 
   const handleDecline = () => {
@@ -35,7 +35,7 @@ export default function CookieConsent() {
     setTimeout(() => {
       const cookieModal = document.getElementById("cookie-modal");
       cookieModal?.classList.add("hidden");
-    }, 3);
+    }, 300);
   };
 
   if (consent === null) return null;
