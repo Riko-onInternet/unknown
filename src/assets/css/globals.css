@@ -358,7 +358,6 @@ body {
   &.fade-out {
     opacity: 0;
     transform: translateY(10%);
-    display: none;
   }
 }
 

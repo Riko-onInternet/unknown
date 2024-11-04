@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useCookie } from "@/assets/components/CookieProvider";
-import Logo from "./Logo";
 
 export default function CookieConsent() {
+  const cookieModal = document.querySelector("#cookie-modal");
+   
   const {
     consent,
     giveConsent,
@@ -12,7 +13,7 @@ export default function CookieConsent() {
     setIsSubtitlesEnabled,
     audioLanguage,
     setAudioLanguage,
-  } = useCookie(); // Cambiato da audioTrack a audioLanguage
+  } = useCookie();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -24,11 +25,17 @@ export default function CookieConsent() {
   const handleAccept = () => {
     giveConsent();
     setIsVisible(false);
+
+    setTimeout(() => {
+      cookieModal?.classList.add("hidden");
+    }, 200);
   };
 
   const handleDecline = () => {
-    setIsVisible(false); // Nasconde la scheda
-    // Logica per rifare i cookie
+    setIsVisible(false);
+    setTimeout(() => {
+      cookieModal?.classList.add("hidden");
+    }, 200);
   };
 
   if (consent === null) return null;
