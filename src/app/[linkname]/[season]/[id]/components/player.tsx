@@ -633,8 +633,7 @@ export default function Player({
       </div>
 
       <p className="w-full h-full flex items-center justify-center text-center text-base">
-        Stiamo ancora sistemando il server dove mettere gli episodi, vi chiediamo
-        di essere pazienti e di aspettare.
+        Se stai vedendo questo messaggio, significa che: o qualcosa è andato storto, o che non è possibile caricare l'episodio selezionato.
       </p>
 
       {/* ----- Controlli ----- */}
@@ -834,7 +833,7 @@ export default function Player({
       </div>
 
       {/* Sidebar */}
-      {/* <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+      <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
         <Tabs aria-label="Options" isVertical>
           <Tab
             key="velocita"
@@ -924,7 +923,7 @@ export default function Player({
             </div>
           </Tab>
         </Tabs>
-      </div> */}
+      </div>
     </div>
   );
 }
