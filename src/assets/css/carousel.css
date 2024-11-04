@@ -30,43 +30,43 @@
   width: 100%;
 
   @media (min-width: 10px) {
-    &[aria-device="pc"] {
+    &[dara-device="pc"] {
       display: none;
     }
 
-    &[aria-device="tablet"] {
+    &[dara-device="tablet"] {
       display: none;
     }
 
-    &[aria-device="mobile"] {
+    &[dara-device="mobile"] {
       display: block;
     }
   }
 
   @media (min-width: 545px) {
-    &[aria-device="pc"] {
+    &[dara-device="pc"] {
       display: none;
     }
 
-    &[aria-device="tablet"] {
+    &[dara-device="tablet"] {
       display: block;
     }
 
-    &[aria-device="mobile"] {
+    &[dara-device="mobile"] {
       display: none;
     }
   }
 
   @media (min-width: 810px) {
-    &[aria-device="pc"] {
+    &[dara-device="pc"] {
       display: block;
     }
 
-    &[aria-device="tablet"] {
+    &[dara-device="tablet"] {
       display: none;
     }
 
-    &[aria-device="mobile"] {
+    &[dara-device="mobile"] {
       display: none;
     }
   }

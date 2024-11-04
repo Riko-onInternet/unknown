@@ -169,9 +169,9 @@ export default function Home() {
               className="cursor-pointer"
             >
               <div className="content-img">
-                <img src={item.pc} alt="slider" aria-device="pc" />
-                <img src={item.tablet} alt="slider" aria-device="tablet" />
-                <img src={item.mobile} alt="slider" aria-device="mobile" />
+                <img src={item.pc} alt="slider" dara-device="pc" />
+                <img src={item.tablet} alt="slider" dara-device="tablet" />
+                <img src={item.mobile} alt="slider" dara-device="mobile" />
               </div>
             </div>
           </SwiperSlide>
