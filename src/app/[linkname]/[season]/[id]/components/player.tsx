@@ -630,7 +630,7 @@ export default function Player({
         <a href="/" className="back-button" title="Torna alla Home">
           <FaArrowLeft />
         </a>
-        <a href="/" className="back-button" title="Torna alla Home">
+        <a href="/" className="next-episode" title="Torna alla Home">
           <MdSkipNext />
         </a>
       </div>

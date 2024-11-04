@@ -49,6 +49,7 @@
       scale: 1;
       transition: scale 0.2s ease;
       filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+      padding: 0.5rem;
 
       &:hover {
         scale: 1.1;
