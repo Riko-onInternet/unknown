@@ -164,7 +164,7 @@
         border-radius: var(--border-radius);
 
         & .progress-thumb {
-          position: absolute !important;
+          position: absolute;
           top: 50%;
           background: var(--bg-fill);
           border-radius: 50%;
