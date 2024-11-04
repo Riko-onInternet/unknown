@@ -18,6 +18,7 @@ import {
   MdSpeed,
   MdOutlineTextFields,
   MdHeadphones,
+  MdSkipNext,
 } from "react-icons/md";
 import { PiGearFill } from "react-icons/pi";
 import Hls from "hls.js";
@@ -628,7 +629,7 @@ export default function Player({
           <FaArrowLeft />
         </a>
         <a href="/" className="back-button" title="Torna alla Home">
-          <FaArrowLeft />
+          <MdSkipNext />
         </a>
       </div>
 
