@@ -53,8 +53,11 @@ interface Serie {
   autor: { name: string; img: string }[];
   linkName: string;
   id: string;
-  startYear: string;
-  endYear: string;
+  year: {
+    start: string;
+    end: string;
+    status: string;
+  }[];
   seasons: number;
   sinossi: string;
   apiRate: string;
@@ -281,7 +284,11 @@ export default function Home() {
                                   )}
                                   {content.title === "Anno" && (
                                     <p>
-                                      {serie.startYear} - {serie.endYear}
+                                      {serie.year[0].status === "continued" ? (
+                                        serie.year[0].start + " - "
+                                      ) : serie.year[0].status === "completed" ? (
+                                        serie.year[0].start + " - " + serie.year[0].end
+                                      ) : serie.year[0].start}
                                     </p>
                                   )}
                                   {content.title === "Sinossi" && (
