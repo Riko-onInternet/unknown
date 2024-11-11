@@ -61,7 +61,7 @@ interface Serie {
   seasons: number;
   sinossi: string;
   apiRate: string;
-  linguage: string;
+  linguage: { name: string; id: string }[];
   subtitle: { name: string; id: string }[];
   cast: { name: string; id: string }[];
   generi: { name: string; id: string }[];
@@ -113,11 +113,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register('/service-worker.js')
-        .then((registration) => console.log('Service Worker registrato:', registration))
-        .catch((error) => console.log('Errore Service Worker:', error));
+        .register("/service-worker.js")
+        .then((registration) =>
+          console.log("Service Worker registrato:", registration)
+        )
+        .catch((error) => console.log("Errore Service Worker:", error));
     }
   }, []);
 
@@ -284,11 +286,13 @@ export default function Home() {
                                   )}
                                   {content.title === "Anno" && (
                                     <p>
-                                      {serie.year[0].status === "continued" ? (
-                                        serie.year[0].start + " - "
-                                      ) : serie.year[0].status === "completed" ? (
-                                        serie.year[0].start + " - " + serie.year[0].end
-                                      ) : serie.year[0].start}
+                                      {serie.year[0].status === "continued"
+                                        ? serie.year[0].start + " - "
+                                        : serie.year[0].status === "completed"
+                                        ? serie.year[0].start +
+                                          " - " +
+                                          serie.year[0].end
+                                        : serie.year[0].start}
                                     </p>
                                   )}
                                   {content.title === "Sinossi" && (
@@ -376,10 +380,12 @@ export default function Home() {
                                 ?.episodes.map((episode) => (
                                   <>
                                     <a
-                                      href={`/${serie.linkName}/${selectedSeason[serie.id]}/${episode.id}`}
+                                      href={`/${serie.linkName}/${
+                                        selectedSeason[serie.id]
+                                      }/${episode.id}`}
                                       key={episode.id}
                                       className={`w-full h-auto sm:h-[140px] md:h-[110px] flex items-start flex-col md:flex-row gap-2 episode-card ${
-                                        episode.link === ""
+                                        episode.status === "offline"
                                           ? "episode-disabled"
                                           : ""
                                       }`}
@@ -474,7 +480,9 @@ export default function Home() {
                               <p className="text-lg font-bold text-primary leading-normal">
                                 Lingua
                               </p>
-                              <p>{serie.linguage}</p>
+                              {serie.linguage.map((linguage) => (
+                                <p key={linguage.id}>{linguage.name}</p>
+                              ))}
                             </div>
 
                             {serie.subtitle && serie.subtitle.length > 0 && (
