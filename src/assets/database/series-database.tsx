@@ -159,7 +159,7 @@ const seriesDatabase = [
           {
             nEp: 4,
             title: "Episodio 4",
-            id: "TADC_S1E4",
+            id: "tadc_s1e4",
             description: "//",
             minutes: "??",
             img: "TBA",
@@ -392,6 +392,7 @@ const seriesDatabase = [
               "È un giorno normale per Uzi con i suoi compagni di scuola che non le danno rispetto e un padre che non sa badare a lei. Uzi si ritrova in una missione dopo che scatena un mostro gigante e incontra un amico di nome N.",
             minutes: "26",
             img: "murder_drones/episodes/s1/md_e1",
+            status: "online",
           },
           {
             nEp: 2,
@@ -401,6 +402,7 @@ const seriesDatabase = [
               "Uzi, N e V cercano un modo di fermare il mostro. Khan cerca di riallacciare i rapporti con sua figlia.",
             minutes: "17",
             img: "murder_drones/episodes/s1/md_e2",
+            status: "online",
           },
           {
             nEp: 3,
@@ -410,6 +412,7 @@ const seriesDatabase = [
               "Le sparizioni di robot sono aumentate e Uzi inizia a ipotizzare il responsabile; per capirlo, Uzi si imbatte in Lizzy e Doll; Uzi, N e V vanno al ballo di fine anno.",
             minutes: "18",
             img: "murder_drones/episodes/s1/md_e3",
+            status: "online",
           },
           {
             nEp: 4,
@@ -419,6 +422,7 @@ const seriesDatabase = [
               "È giorno di campeggio per i robot, un giorno pieno di divertimento e zero pensieri ma Uzi non lo prenderà come il resto dei robot",
             minutes: "21",
             img: "murder_drones/episodes/s1/md_e4",
+            status: "online",
           },
           {
             nEp: 5,
@@ -428,6 +432,7 @@ const seriesDatabase = [
               "Uzi e N devono recuperare dei ricordi ma intanto cominciano a capire degli oscuri segreti.",
             minutes: "19",
             img: "murder_drones/episodes/s1/md_e5",
+            status: "online",
           },
           {
             nEp: 6,
@@ -437,6 +442,7 @@ const seriesDatabase = [
               "Uzi e il team si ritrovano in parti oscure della città e incontrano nuovi pericoli.",
             minutes: "21",
             img: "murder_drones/episodes/s1/md_e6",
+            status: "online",
           },
           {
             nEp: 7,
@@ -446,6 +452,7 @@ const seriesDatabase = [
               "Dopo essersi addentrati nei livelli più profondi della terra, la squadra scoprirà che nell'oscurità della terra si nascondono altre verità/",
             minutes: "25",
             img: "murder_drones/episodes/s1/md_e7",
+            status: "online",
           },
           {
             nEp: 8,
@@ -455,6 +462,7 @@ const seriesDatabase = [
               "Nel finale di serie di Murder Drones, Uzi e N affrontano Cyn in una battaglia epica che cambierà l'universo per sempre.",
             minutes: "20",
             img: "murder_drones/episodes/s1/md_e8",
+            status: "online",
           },
         ],
       },
