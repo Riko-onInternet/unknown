@@ -26,6 +26,7 @@ export default function Player() {
     .find((s) => s.season === parseInt(season))
     ?.episodes.find((e) => e.id === episodeId);
 
+  // Controlla se la serie o l'episodio non esiste
   if (!series || !episode) {
     return (
       <div className="fixed inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
