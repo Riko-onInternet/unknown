@@ -1,0 +1,16 @@
+.list-card {
+  --list-card-border-radius: 20px;
+  outline: 3px solid transparent;
+  border-radius: var(--list-card-border-radius);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    outline: 3px solid var(--unknown-primary);
+    scale: 1.05;
+  }
+
+  img {
+    border-radius: calc(var(--list-card-border-radius) - 2px);
+  }
+}

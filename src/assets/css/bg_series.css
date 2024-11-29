@@ -51,6 +51,11 @@
 
 .linear-bottom {
   background: linear-gradient(0deg, var(--unknown-background-tertiary) 0%, transparent 50%);
+  padding-left: 24px;
+
+  @media (min-width: 576px) {
+    padding-left: 50px;
+  }
 }
 
 .rating-IMDb {
@@ -112,6 +117,11 @@
       &:hover {
         background-color: var(--unknown-primary-hover);
       }
+    }
+
+    &.list-active {
+      outline: 2px solid var(--unknown-primary);
+      background-color: var(--unknown-primary);
     }
   }
 }

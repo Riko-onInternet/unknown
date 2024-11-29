@@ -30,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className="antialiased dark">
-      <body>
+    <html lang="it" className="antialiased dark" suppressHydrationWarning>
+      <body className="h-screen">
         <LoadingOverlay />
         <CookieProvider>
           <main className="margin-menus">

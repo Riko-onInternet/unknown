@@ -81,6 +81,10 @@ export default function Player() {
       currentLanguage={subtitleLanguage}
       availableAudio={series.audio}
       currentAudio={audioLanguage}
+      episodeTitle={episode.title}
+      episodeNumber={episode.nEp}
+      seriesTitle={series.Name}
+      episodeSeason={parseInt(season)}
     />
   );
 }

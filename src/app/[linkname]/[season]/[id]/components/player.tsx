@@ -4,7 +4,9 @@ import "../style.css";
 
 import { useState, useEffect, useRef } from "react";
 
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Tooltip } from "@nextui-org/react";
+
+import seriesDatabase from "@/assets/database/series-database";
 
 // Icons
 import { FaPlay, FaPause, FaArrowLeft } from "react-icons/fa6";
@@ -19,6 +21,7 @@ import {
   MdOutlineTextFields,
   MdHeadphones,
   MdSkipNext,
+  MdOutlineInfo,
 } from "react-icons/md";
 import { PiGearFill } from "react-icons/pi";
 import Hls from "hls.js";
@@ -40,6 +43,10 @@ export default function Player({
   currentLanguage,
   availableAudio,
   currentAudio,
+  episodeTitle,
+  episodeNumber,
+  seriesTitle,
+  episodeSeason,
 }: {
   videoSrc: string;
   typeVideo: string;
@@ -48,6 +55,10 @@ export default function Player({
   currentLanguage: string;
   availableAudio: { name: string; id: string }[];
   currentAudio: string;
+  episodeTitle: string;
+  episodeNumber: number;
+  seriesTitle: string;
+  episodeSeason: number;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hls = useRef<Hls>(null);
@@ -119,7 +130,7 @@ export default function Player({
     updateVideoProgress(event.clientX);
   };
 
-  // Aggiungi queste nuove funzioni per il trascinamento della progress bar
+  // Funzioni per il trascinamento della progress bar
   const handleProgressMouseDown = () => {
     setIsDraggingProgress(true);
   };
@@ -181,12 +192,12 @@ export default function Player({
       handleVolumeMouseMove(event);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDraggingProgress, isDraggingVolume]);
 
@@ -227,7 +238,7 @@ export default function Player({
   const handleFullscreen = () => {
     if (videoRef.current) {
       const videoElement = videoRef.current as SafariHTMLVideoElement;
-      
+
       if (!document.fullscreenElement) {
         // Controlla se il browser supporta webkitEnterFullscreen (iOS)
         if (videoElement.webkitEnterFullscreen) {
@@ -457,7 +468,6 @@ export default function Player({
     }
   }, []);
 
-  // Effetto per gestire la sidebar
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | undefined;
     const body = document.body;
@@ -623,21 +633,99 @@ export default function Player({
   // Aggiungi questo ref
   const volumeBarRef = useRef<HTMLDivElement>(null);
 
+  // Funzione per ottenere il link del prossimo episodio
+  const getNextEpisodeLink = () => {
+    const series = seriesDatabase.find((s) => s.Name === seriesTitle);
+    const currentSeason = series?.episodes.find(
+      (s) => s.season === episodeSeason
+    );
+
+    if (currentSeason) {
+      const currentEpisodeIndex = currentSeason.episodes.findIndex(
+        (e) => e.nEp === episodeNumber
+      );
+
+      const nextEpisode = currentSeason.episodes[currentEpisodeIndex + 1];
+
+      // Verifica se esiste un episodio successivo e se è online
+      if (nextEpisode && nextEpisode.status === "online") {
+        return `/${series?.linkName}/${episodeSeason}/${nextEpisode.id}`;
+      }
+    }
+    return null;
+  };
+
+  // Aggiungi questo stato
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
     <div className="video-container overflow-hidden">
       {/* ----- Menu top ----- */}
       <div className="menu-top">
-        <a href="/" className="back-button" title="Torna alla Home">
-          <FaArrowLeft />
-        </a>
-        <a href="/" className="next-episode" title="Torna alla Home">
-          <MdSkipNext />
-        </a>
-      </div>
+        <div className="flex items-center justify-between w-full">
+          {/* Torna alla Home */}
+          <a href="/" className="back-button" title="Torna alla Home">
+            <FaArrowLeft />
+          </a>
 
-      {/* <p className="w-full h-full flex items-center justify-center text-center text-base">
-        Se stai vedendo questo messaggio, significa che: o qualcosa è andato storto, o che non è possibile caricare l'episodio selezionato.
-      </p> */}
+          {/* Titolo e numero episodio */}
+          <p className="hidden md:flex text-center text-lg items-center justify-center gap-2 title-episode">
+            <span className="font-bold">{seriesTitle}</span>
+            <span className="flex items-center justify-center gap-2 opacity-70">
+              <span>
+                S{episodeSeason}:E{episodeNumber}
+              </span>
+              {episodeTitle && <span>{episodeTitle}</span>}
+            </span>
+          </p>
+
+          {/* Prossimo episodio */}
+          <span className="flex items-center h-[72px]">
+            <div className="relative h-full flex items-center justify-center">
+              <button
+                type="button"
+                className="info-tooltip"
+                onClick={() => setShowTooltip(!showTooltip)}
+              >
+                <MdOutlineInfo />
+              </button>
+
+              {showTooltip && (
+                <div
+                  className={`tooltip-box${isPlaying ? " hide-tooltip" : ""}`}
+                >
+                  <div className="flex items-start justify-center flex-col w-[200px] overflow-hidden text-wrap">
+                    <p className="font-bold text-base mb-1">
+                      Informazioni sulla selezione dell'episodio
+                    </p>
+                    <p className="text-xs">
+                      È disponibile solo un episodio dimostrativo a causa
+                      dell'assenza di un server storage per l'archiviazione
+                      delle serie complete.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            {getNextEpisodeLink() ? (
+              <a
+                href={getNextEpisodeLink() || "#"}
+                className="next-episode"
+                title="Prossimo episodio"
+              >
+                <MdSkipNext />
+              </a>
+            ) : (
+              <span
+                className="w-[64px] h-[64px] flex items-center justify-center"
+                title="Nessun episodio successivo"
+              >
+                {/* <MdSkipNext /> */}
+              </span>
+            )}
+          </span>
+        </div>
+      </div>
 
       {/* ----- Controlli ----- */}
       <div className="controls-container">

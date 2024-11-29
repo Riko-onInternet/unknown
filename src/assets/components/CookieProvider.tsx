@@ -16,6 +16,9 @@ interface CookieContextType {
   setProfileImage: (image: string) => void;
   handleAudioLanguageChange: (language: string) => void;
   handleSubtitlesToggle: (enabled: boolean) => void;
+  savedSeries: string[];
+  setSavedSeries: (series: string[]) => void;
+  toggleSavedSeries: (seriesId: string) => void;
 }
 
 interface CookieProviderProps {
@@ -30,6 +33,7 @@ export function CookieProvider({ children }: CookieProviderProps) {
   const [audioLanguage, setAudioLanguage] = useState("it"); // Cambiato da audioTrack a audioLanguage
   const [subtitleLanguage, setSubtitleLanguage] = useState("it"); // Stato separato per la lingua dei sottotitoli
   const [profileImage, setProfileImage] = useState("/img/profile/default.png"); // Assicurati che l'URL sia completo
+  const [savedSeries, setSavedSeries] = useState<string[]>([]);
 
   useEffect(() => {
     const savedConsent = localStorage.getItem("cookieConsent");
@@ -60,6 +64,11 @@ export function CookieProvider({ children }: CookieProviderProps) {
     } else {
       setProfileImage("/img/profile/default.png"); // Imposta l'immagine di default se non esiste
     }
+
+    const savedSeriesList = localStorage.getItem("savedSeries");
+    if (savedSeriesList) {
+      setSavedSeries(JSON.parse(savedSeriesList));
+    }
   }, []);
 
   const giveConsent = () => {
@@ -83,6 +92,19 @@ export function CookieProvider({ children }: CookieProviderProps) {
     localStorage.setItem("subtitlesEnabled", JSON.stringify(enabled)); // Salva lo stato dei sottotitoli nei cookie
   };
 
+  const toggleSavedSeries = (seriesId: string) => {
+    setSavedSeries(prev => {
+      const newSeries = prev.includes(seriesId) 
+        ? prev.filter(id => id !== seriesId)
+        : [...prev, seriesId];
+      
+      if (consent) {
+        localStorage.setItem("savedSeries", JSON.stringify(newSeries));
+      }
+      return newSeries;
+    });
+  };
+
   return (
     <CookieContext.Provider value={{
       consent,
@@ -98,6 +120,9 @@ export function CookieProvider({ children }: CookieProviderProps) {
       setProfileImage,
       handleAudioLanguageChange,
       handleSubtitlesToggle,
+      savedSeries,
+      setSavedSeries,
+      toggleSavedSeries,
     }}>
       {children}
     </CookieContext.Provider>

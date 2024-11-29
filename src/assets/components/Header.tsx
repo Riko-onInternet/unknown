@@ -7,7 +7,7 @@ import Link from "next/link";
 
 // Components
 import { useCookie } from "@/assets/components/CookieProvider";
-import Logo from "@/assets/components/Logo"
+import Logo from "@/assets/components/Logo";
 import Toast from "./Toast";
 import predefinedImages from "@/assets/database/imagesProfile";
 
@@ -286,7 +286,7 @@ export default function Header() {
             </Dropdown>
 
             {/* Profile */}
-            <div className="flex items-center gap-2">
+            <div className="profile-top_header items-center gap-2">
               <Dropdown placement="bottom" className="profile-dropdown">
                 <DropdownTrigger>
                   <div className="profile flex items-center gap-2 backdrop-blur-md p-2 rounded-full cursor-pointer">
@@ -337,6 +337,7 @@ export default function Header() {
                     }
                     onMouseEnter={() => setHoveredItem("list")}
                     onMouseLeave={() => setHoveredItem(null)}
+                    href="/lista"
                   >
                     Lista
                   </DropdownItem>
@@ -353,6 +354,7 @@ export default function Header() {
                     }
                     onMouseEnter={() => setHoveredItem("faq")}
                     onMouseLeave={() => setHoveredItem(null)}
+                    href="/faq"
                   >
                     F.A.Q.
                   </DropdownItem>
@@ -393,10 +395,105 @@ export default function Header() {
                 >
                   {item.icon}
                 </span>
-                <span>{item.name}</span>
+                <span className="text-sm sm:text-base">{item.name}</span>
               </Link>
             </li>
           ))}
+          <li>
+            <div className="flex items-center gap-2">
+              <Dropdown placement="bottom" className="profile-dropdown">
+                <DropdownTrigger>
+                  <div className="flex flex-col items-center p-2 rounded-full cursor-pointer">
+                    <div className="avatar_profile rounded-full overflow-hidden">
+                      <img
+                        src={profileImage}
+                        className="w-full h-full object-cover"
+                        alt=""
+                        data-loaded="true"
+                      />
+                    </div>
+                    <p className="text-sm sm:text-base">Profilo</p>
+                  </div>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Profile Actions"
+                  variant="flat"
+                  className="bg-black"
+                >
+                  {/* Avatar */}
+                  <DropdownSection showDivider>
+                    <DropdownItem
+                      key="avatar"
+                      className="text-center"
+                      onClick={onOpenChangeAvatar}
+                    >
+                      <div className="flex flex-col items-center gap-2 w-full ">
+                        <img
+                          src={profileImage}
+                          className="preview-avatar"
+                          alt=""
+                        />
+                        <p className="w-full">
+                          Clicca qui per modificare il tuo avatar
+                        </p>
+                      </div>
+                    </DropdownItem>
+                  </DropdownSection>
+
+                  {/* Lista */}
+                  <DropdownItem
+                    key="list"
+                    startContent={
+                      hoveredItem === "list" ? (
+                        <RiCheckDoubleFill className="icon_account_dropdown colored" />
+                      ) : (
+                        <RiCheckFill className="icon_account_dropdown" />
+                      )
+                    }
+                    onMouseEnter={() => setHoveredItem("list")}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    href="/lista"
+                  >
+                    Lista
+                  </DropdownItem>
+
+                  {/* F.A.Q. */}
+                  <DropdownItem
+                    key="faq"
+                    startContent={
+                      hoveredItem === "faq" ? (
+                        <RiQuestionFill className="icon_account_dropdown colored" />
+                      ) : (
+                        <RiQuestionLine className="icon_account_dropdown" />
+                      )
+                    }
+                    onMouseEnter={() => setHoveredItem("faq")}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    href="/faq"
+                  >
+                    F.A.Q.
+                  </DropdownItem>
+
+                  {/* Impostazioni */}
+                  <DropdownItem
+                    key="impostazioni"
+                    startContent={
+                      hoveredItem === "impostazioni" ? (
+                        <RiSettings3Fill className="icon_account_dropdown colored" />
+                      ) : (
+                        <RiSettings3Line className="icon_account_dropdown" />
+                      )
+                    }
+                    onMouseEnter={() => setHoveredItem("impostazioni")}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    onClick={onOpenOptions}
+                  >
+                    Impostazioni
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </li>
         </ul>
       </div>
 
@@ -506,6 +603,7 @@ export default function Header() {
         classNames={{
           base: "modal-settings",
         }}
+        size="sm"
       >
         <ModalContent>
           {(onClose) => (
@@ -520,22 +618,32 @@ export default function Header() {
                   disallowEmptySelection
                   labelPlacement="outside"
                   placeholder="Seleziona una lingua"
-                  className="max-w-xs input-settings"
-                  selectedKeys={[audioLanguage]} // Cambiato da audioTrack a audioLanguage
-                  onSelectionChange={handleAudioLanguageChange} // Cambiato da handleAudioTrackChange a handleAudioLanguageChange
+                  className="w-full input-settings"
+                  selectedKeys={[audioLanguage]}
+                  onSelectionChange={handleAudioLanguageChange}
                 >
                   <SelectItem key={"it"}>Italiano</SelectItem>
                   <SelectItem key={"en"}>Inglese</SelectItem>
                 </Select>
 
                 <div className="sottotitoli-options">
+                  {/* Attivare i sottotitoli */}
+                  <div className="flex items-center justify-between w-full active-subtitles">
+                    <p>Attiva i sottotitoli</p>
+                    <Switch
+                      isSelected={isSubtitlesEnabled}
+                      onChange={handleSubtitlesToggle}
+                      size="sm"
+                    />
+                  </div>
+
                   {/* Sottotitoli */}
                   <Select
                     label="Lingua sottotitoli"
                     disallowEmptySelection
                     labelPlacement="outside"
                     placeholder="Seleziona una lingua"
-                    className="max-w-xs input-settings"
+                    className="w-full input-settings"
                     selectedKeys={[subtitleLanguage]}
                     onSelectionChange={handleSubtitleLanguageChange}
                     isDisabled={!isSubtitlesEnabled}
@@ -544,18 +652,12 @@ export default function Header() {
                     <SelectItem key="en">Inglese</SelectItem>
                   </Select>
 
-                  {/* Attivare i sottotitoli */}
-                  <Switch
-                    isSelected={isSubtitlesEnabled}
-                    onChange={handleSubtitlesToggle}
-                  >
-                    Attivare i sottotitoli
-                  </Switch>
+                  
                 </div>
 
                 <hr className="opacity-50 " />
 
-                <button className="btn-delete" onClick={checkCookieConsent}>
+                <button className="btn-delete w-full" onClick={checkCookieConsent}>
                   <BsTrash3Fill />
                   Elimina i dati
                 </button>
