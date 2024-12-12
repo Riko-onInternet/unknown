@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/assets/components/Header";
-import { useCookie } from "@/assets/components/CookieProvider";
+import Header from "@/assets/components/Header/Header";
+import { useCookie } from "@/assets/components/Cookies/CookieProvider";
 import seriesDatabase from "@/assets/database/series-database";
 import SeriesModal from "@/assets/components/SeriesModal";
 import "./style.css";

@@ -48,7 +48,17 @@
   --unknown-primary-30: #2e8b5730;
   --unknown-primary-20: #2e8b5720;
   --unknown-primary-10: #2e8b5710;
+
   --unknown-primary-hover: #257046;
+  --unknown-primary-hover-10: #25704610;
+  --unknown-primary-hover-20: #25704620;
+  --unknown-primary-hover-30: #25704630;
+  --unknown-primary-hover-40: #25704640;
+  --unknown-primary-hover-50: #25704650;
+  --unknown-primary-hover-60: #25704660;
+  --unknown-primary-hover-70: #25704670;
+  --unknown-primary-hover-80: #25704680;
+  --unknown-primary-hover-90: #25704690;
 
   /* Background */
   --unknown-background: #1a1a1a;
@@ -95,7 +105,7 @@
 }
 
 *:focus-visible {
-  outline: none;
+  outline: none !important;
 }
 
 img {
@@ -103,14 +113,6 @@ img {
 }
 
 @media (min-width: 10px) {
-  .container-header {
-    padding: 16px 24px;
-  }
-
-  .menu-items {
-    display: none;
-  }
-
   .menu_bottom {
     display: block;
     height: 80px;
@@ -128,21 +130,10 @@ img {
 
 }
 
-@media (min-width: 768px) {
-  .container-header {
-    padding: 16px 52px;
-  }
-}
-
 @media (min-width: 810px) {
-  .menu-items {
-    display: flex;
-  }
-
   .menu_bottom {
     display: none;
   }
-
 }
 
 .margin-menus {
@@ -196,35 +187,6 @@ body {
   display: none;
 }
 
-.container-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.menu-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 28px;
-}
-
-.menu-container ul li a {
-  padding: 5px;
-}
-
-.profile {
-  background-color: var(--unknown-primary);
-  padding: 7px;
-  transition: background-color .2s ease-in-out;
-
-  &:hover,
-  &[aria-expanded="true"] {
-    background-color: var(--unknown-primary-hover);
-  }
-}
-
 .menu_bottom ul li a {
   min-width: 50px !important;
 }
@@ -244,18 +206,6 @@ body {
   background-color: var(--unknown-background-secondary);
   padding: 10px 15px;
   border-radius: 9999999px;
-}
-
-.modal-search,
-.modal-settings,
-.modal-delete,
-.modal-change-avatar,
-.notification-dropdown {
-  background-color: var(--unknown-background) !important;
-
-  @media (min-width: 10px) {
-    margin: 0;
-  }
 }
 
 .search-tab-list {
@@ -278,46 +228,6 @@ body {
 
 .filter-search:hover {
   background-color: var(--unknown-primary);
-}
-
-.avatar {
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  overflow: hidden;
-  vertical-align: middle;
-  z-index: 0;
-  width: 2rem;
-  height: 2rem;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  font-size: var(--nextui-font-size-tiny);
-  line-height: var(--nextui-line-height-tiny);
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--nextui-default) / var(--nextui-default-opacity, var(--tw-bg-opacity)));
-  --tw-text-opacity: 1;
-  color: hsl(var(--nextui-default-foreground) / var(--nextui-default-foreground-opacity, var(--tw-text-opacity)));
-  border-radius: 9999px;
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-  --tw-ring-offset-width: 2px;
-  --tw-ring-offset-color: hsl(var(--nextui-background) / var(--nextui-background-opacity, 1));
-  --tw-ring-opacity: 1;
-  --tw-ring-color: hsl(var(--nextui-default) / var(--nextui-default-opacity, var(--tw-ring-opacity)));
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
-
-  &[data-focus-visible="true"] {
-    z-index: 10;
-    outline-width: 2px;
-    outline-color: hsl(var(--nextui-focus) / var(--nextui-focus-opacity, 1));
-    outline-offset: 2px;
-  }
-
 }
 
 .cookie-modal {
@@ -428,15 +338,6 @@ body {
   height: 70px;
   object-fit: cover;
   border-radius: 9999999px;
-}
-
-.profile-dropdown {
-  max-width: 150px;
-  background-color: var(--unknown-background-secondary);
-
-  & p {
-    text-wrap: wrap;
-  }
 }
 
 .input-settings {
@@ -633,21 +534,6 @@ body {
   gap: 0;
 }
 
-.menu-item {
-  padding: 10px 10px !important;
-  border-bottom: 2px solid;
-  border-color: transparent;
-  transition: border-color .2s ease-in-out;
-
-  &:hover {
-    border-color: var(--unknown-primary-20);
-  }
-
-  &.menu-item_active {
-    border-color: var(--unknown-primary);
-  }
-}
-
 .episode-disabled {
   pointer-events: none;
   opacity: 0.5;
@@ -715,10 +601,4 @@ body {
   }
 }
 
-.profile-top_header {
-  display: none;
 
-  @media (min-width: 810px) {
-    display: flex;
-  }
-}

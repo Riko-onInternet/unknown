@@ -3,7 +3,7 @@
 import { Modal, ModalContent, ModalBody, Tabs, Tab, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Skeleton } from "@nextui-org/react";
 import { RiStarFill, RiPlayLargeFill, RiBookmarkFill, RiBookmarkLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
-import { useCookie } from "./CookieProvider";
+import { useCookie } from "./Cookies/CookieProvider";
 import seriesDatabase from "@/assets/database/series-database";
 
 import "@/assets/css/bg_series.css";

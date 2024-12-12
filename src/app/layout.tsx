@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "@/assets/css/globals.css";
 import "@/assets/css/font.css";
 
-import CookieConsent from "@/assets/components/CookieConsent";
-import { CookieProvider } from "@/assets/components/CookieProvider";
+import CookieConsent from "@/assets/components/Cookies/CookieConsent";
+import { CookieProvider } from "@/assets/components/Cookies/CookieProvider";
 import KeyBlocker from "@/assets/components/KeyBlock";
 import LoadingOverlay from "@/assets/components/loadingOverlay";
 

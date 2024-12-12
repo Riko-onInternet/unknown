@@ -1,7 +1,7 @@
 "use client";
 
 import PlayerComponent from "./components/player";
-import { useCookie } from "@/assets/components/CookieProvider";
+import { useCookie } from "@/assets/components/Cookies/CookieProvider";
 import { useParams } from "next/navigation";
 import seriesDatabase from "@/assets/database/series-database";
 

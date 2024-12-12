@@ -2,7 +2,6 @@
 
 // React
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 // import Swiper core and required modules
 import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
@@ -17,37 +16,12 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 // Components
-import Header from "@/assets/components/Header";
+import Header from "@/assets/components/Header/Header";
 import seriesDatabase from "@/assets/database/series-database";
 import "@/assets/css/carousel.css";
 import "@/assets/css/bg_series.css";
-import { useCookie } from "@/assets/components/CookieProvider";
+import { useCookie } from "@/assets/components/Cookies/CookieProvider";
 import SeriesModal from "@/assets/components/SeriesModal";
-
-// NextUI
-import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  useDisclosure,
-  Button,
-  Tabs,
-  Tab,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-  Skeleton,
-} from "@nextui-org/react";
-
-// Icons
-import {
-  RiStarFill,
-  RiPlayLargeFill,
-  RiBookmarkFill,
-  RiBookmarkLine,
-} from "react-icons/ri";
 
 // Definisci l'interfaccia per i dati della serie
 interface Serie {

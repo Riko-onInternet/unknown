@@ -1,14 +1,16 @@
 "use client";
 
+import "./Header.css";
+
 import { useState, useEffect } from "react";
 
 // Utilities
 import Link from "next/link";
 
 // Components
-import { useCookie } from "@/assets/components/CookieProvider";
+import { useCookie } from "@/assets/components/Cookies/CookieProvider";
 import Logo from "@/assets/components/Logo";
-import Toast from "./Toast";
+import Toast from "../Toast";
 import predefinedImages from "@/assets/database/imagesProfile";
 
 // NextUI
@@ -221,6 +223,121 @@ export default function Header() {
     window.location.reload();
   };
 
+  interface ProfileDropdownProps {
+    className?: string;
+  }
+
+  const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ className }) => {
+    return (
+      <div className={`profile-top_header items-center gap-2 ${className}`}>
+        <Dropdown placement="bottom" className="profile-dropdown">
+          <DropdownTrigger>
+            <div className="flex flex-col items-center gap-2 backdrop-blur-md p-2 rounded-full cursor-pointer profile">
+              <button tabIndex={0} className="avatar">
+                <img
+                  src={profileImage}
+                  className="flex object-cover w-full h-full transition-opacity !duration-500 opacity-0 data-[loaded=true]:opacity-100"
+                  alt=""
+                  data-loaded="true"
+                />
+              </button>
+            </div>
+          </DropdownTrigger>
+          <DropdownMenu
+            aria-label="Profile Actions"
+            variant="flat"
+            className="bg-transparent"
+          >
+            {/* Avatar */}
+            <DropdownSection showDivider>
+              <DropdownItem
+                key="avatar"
+                className="text-center"
+                onClick={onOpenChangeAvatar}
+              >
+                <div className="flex flex-col items-center gap-2 w-full ">
+                  <img src={profileImage} className="preview-avatar" alt="" />
+                  <p className="w-full">
+                    Clicca qui per modificare il tuo avatar
+                  </p>
+                </div>
+              </DropdownItem>
+            </DropdownSection>
+
+            {/* tasti log in e registrazione */}
+            <DropdownSection showDivider>
+              <DropdownItem
+                key="login"
+                className="text-center button-login"
+                href="/login"
+              >
+                <button className="w-full">Accedi</button>
+              </DropdownItem>
+              <DropdownItem
+                key="register"
+                className="text-center button-register"
+                href="/register"
+              >
+                <button className="w-full">Registrati</button>
+              </DropdownItem>
+            </DropdownSection>
+
+            {/* Lista */}
+            <DropdownItem
+              key="list"
+              startContent={
+                hoveredItem === "list" ? (
+                  <RiCheckDoubleFill className="icon_account_dropdown colored" />
+                ) : (
+                  <RiCheckFill className="icon_account_dropdown" />
+                )
+              }
+              onMouseEnter={() => setHoveredItem("list")}
+              onMouseLeave={() => setHoveredItem(null)}
+              href="/lista"
+            >
+              Lista
+            </DropdownItem>
+
+            {/* F.A.Q. */}
+            <DropdownItem
+              key="faq"
+              startContent={
+                hoveredItem === "faq" ? (
+                  <RiQuestionFill className="icon_account_dropdown colored" />
+                ) : (
+                  <RiQuestionLine className="icon_account_dropdown" />
+                )
+              }
+              onMouseEnter={() => setHoveredItem("faq")}
+              onMouseLeave={() => setHoveredItem(null)}
+              href="/faq"
+            >
+              F.A.Q.
+            </DropdownItem>
+
+            {/* Impostazioni */}
+            <DropdownItem
+              key="impostazioni"
+              startContent={
+                hoveredItem === "impostazioni" ? (
+                  <RiSettings3Fill className="icon_account_dropdown colored" />
+                ) : (
+                  <RiSettings3Line className="icon_account_dropdown" />
+                )
+              }
+              onMouseEnter={() => setHoveredItem("impostazioni")}
+              onMouseLeave={() => setHoveredItem(null)}
+              onClick={onOpenOptions}
+            >
+              Impostazioni
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    );
+  };
+
   return (
     <nav>
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
@@ -248,7 +365,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-h-[46px]">
             {/* Search */}
             <button
               className="text-white p-1 text-xl"
@@ -267,7 +384,7 @@ export default function Header() {
               <DropdownMenu
                 aria-label="Profile Actions"
                 variant="flat"
-                className="bg-black"
+                className="bg-transparent"
               >
                 <DropdownSection
                   title="Notifiche"
@@ -286,98 +403,7 @@ export default function Header() {
             </Dropdown>
 
             {/* Profile */}
-            <div className="profile-top_header items-center gap-2">
-              <Dropdown placement="bottom" className="profile-dropdown">
-                <DropdownTrigger>
-                  <div className="profile flex items-center gap-2 backdrop-blur-md p-2 rounded-full cursor-pointer">
-                    <button tabIndex={0} className="avatar">
-                      <img
-                        src={profileImage}
-                        className="flex object-cover w-full h-full transition-opacity !duration-500 opacity-0 data-[loaded=true]:opacity-100"
-                        alt=""
-                        data-loaded="true"
-                      />
-                    </button>
-                  </div>
-                </DropdownTrigger>
-                <DropdownMenu
-                  aria-label="Profile Actions"
-                  variant="flat"
-                  className="bg-black"
-                >
-                  {/* Avatar */}
-                  <DropdownSection showDivider>
-                    <DropdownItem
-                      key="avatar"
-                      className="text-center"
-                      onClick={onOpenChangeAvatar}
-                    >
-                      <div className="flex flex-col items-center gap-2 w-full ">
-                        <img
-                          src={profileImage}
-                          className="preview-avatar"
-                          alt=""
-                        />
-                        <p className="w-full">
-                          Clicca qui per modificare il tuo avatar
-                        </p>
-                      </div>
-                    </DropdownItem>
-                  </DropdownSection>
-
-                  {/* Lista */}
-                  <DropdownItem
-                    key="list"
-                    startContent={
-                      hoveredItem === "list" ? (
-                        <RiCheckDoubleFill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiCheckFill className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("list")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    href="/lista"
-                  >
-                    Lista
-                  </DropdownItem>
-
-                  {/* F.A.Q. */}
-                  <DropdownItem
-                    key="faq"
-                    startContent={
-                      hoveredItem === "faq" ? (
-                        <RiQuestionFill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiQuestionLine className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("faq")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    href="/faq"
-                  >
-                    F.A.Q.
-                  </DropdownItem>
-
-                  {/* Impostazioni */}
-                  <DropdownItem
-                    key="impostazioni"
-                    startContent={
-                      hoveredItem === "impostazioni" ? (
-                        <RiSettings3Fill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiSettings3Line className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("impostazioni")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    onClick={onOpenOptions}
-                  >
-                    Impostazioni
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
+            <ProfileDropdown className="top" />
           </div>
         </div>
       </header>
@@ -399,100 +425,10 @@ export default function Header() {
               </Link>
             </li>
           ))}
-          <li>
-            <div className="flex items-center gap-2">
-              <Dropdown placement="bottom" className="profile-dropdown">
-                <DropdownTrigger>
-                  <div className="flex flex-col items-center p-2 rounded-full cursor-pointer">
-                    <div className="avatar_profile rounded-full overflow-hidden">
-                      <img
-                        src={profileImage}
-                        className="w-full h-full object-cover"
-                        alt=""
-                        data-loaded="true"
-                      />
-                    </div>
-                    <p className="text-sm sm:text-base">Profilo</p>
-                  </div>
-                </DropdownTrigger>
-                <DropdownMenu
-                  aria-label="Profile Actions"
-                  variant="flat"
-                  className="bg-black"
-                >
-                  {/* Avatar */}
-                  <DropdownSection showDivider>
-                    <DropdownItem
-                      key="avatar"
-                      className="text-center"
-                      onClick={onOpenChangeAvatar}
-                    >
-                      <div className="flex flex-col items-center gap-2 w-full ">
-                        <img
-                          src={profileImage}
-                          className="preview-avatar"
-                          alt=""
-                        />
-                        <p className="w-full">
-                          Clicca qui per modificare il tuo avatar
-                        </p>
-                      </div>
-                    </DropdownItem>
-                  </DropdownSection>
 
-                  {/* Lista */}
-                  <DropdownItem
-                    key="list"
-                    startContent={
-                      hoveredItem === "list" ? (
-                        <RiCheckDoubleFill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiCheckFill className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("list")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    href="/lista"
-                  >
-                    Lista
-                  </DropdownItem>
-
-                  {/* F.A.Q. */}
-                  <DropdownItem
-                    key="faq"
-                    startContent={
-                      hoveredItem === "faq" ? (
-                        <RiQuestionFill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiQuestionLine className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("faq")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    href="/faq"
-                  >
-                    F.A.Q.
-                  </DropdownItem>
-
-                  {/* Impostazioni */}
-                  <DropdownItem
-                    key="impostazioni"
-                    startContent={
-                      hoveredItem === "impostazioni" ? (
-                        <RiSettings3Fill className="icon_account_dropdown colored" />
-                      ) : (
-                        <RiSettings3Line className="icon_account_dropdown" />
-                      )
-                    }
-                    onMouseEnter={() => setHoveredItem("impostazioni")}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    onClick={onOpenOptions}
-                  >
-                    Impostazioni
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
+          {/* Profilo */}
+          <li className="flex flex-col items-center justify-center max-h-[63px] h-full">
+            <ProfileDropdown className="bottom min-w-[66px] flex justify-center" />
           </li>
         </ul>
       </div>
@@ -651,13 +587,14 @@ export default function Header() {
                     <SelectItem key="it">Italiano</SelectItem>
                     <SelectItem key="en">Inglese</SelectItem>
                   </Select>
-
-                  
                 </div>
 
                 <hr className="opacity-50 " />
 
-                <button className="btn-delete w-full" onClick={checkCookieConsent}>
+                <button
+                  className="btn-delete w-full"
+                  onClick={checkCookieConsent}
+                >
                   <BsTrash3Fill />
                   Elimina i dati
                 </button>

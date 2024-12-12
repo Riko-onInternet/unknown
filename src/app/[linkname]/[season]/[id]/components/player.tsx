@@ -27,7 +27,7 @@ import { PiGearFill } from "react-icons/pi";
 import Hls from "hls.js";
 
 // Importa il hook per utilizzare il contesto
-import { useCookie } from "@/assets/components/CookieProvider"; // Assicurati che il percorso sia corretto
+import { useCookie } from "@/assets/components/Cookies/CookieProvider"; // Assicurati che il percorso sia corretto
 
 // Aggiungi questa interfaccia all'inizio del file, dopo gli import
 interface SafariHTMLVideoElement extends HTMLVideoElement {

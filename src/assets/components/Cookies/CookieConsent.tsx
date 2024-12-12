@@ -1,7 +1,7 @@
 "use client"; // Aggiungi questa linea
 
 import { useState, useEffect } from "react";
-import { useCookie } from "@/assets/components/CookieProvider";
+import { useCookie } from "@/assets/components/Cookies/CookieProvider";
 
 export default function CookieConsent() {
   const {
