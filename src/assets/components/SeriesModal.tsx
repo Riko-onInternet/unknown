@@ -64,19 +64,27 @@ export default function SeriesModal({
                 {Array.isArray(serie.autor) && serie.autor.length > 1 ? (
                   <div className="flex gap-2">
                     {serie.autor.map((author, index) => (
-                      <div key={author.name} className="author w-max">
+                      <a
+                        key={author.name}
+                        href={`/autore/${encodeURIComponent(author.name)}`}
+                        className="author w-max"
+                      >
                         <img src={"/img/creators/" + author.img + ".avif"} />
                         <p>{author.name}</p>
                         {index < serie.autor.length - 1 && <span>&</span>}
-                      </div>
+                      </a>
                     ))}
                   </div>
                 ) : (
                   serie.autor.map((author) => (
-                    <div key={author.name} className="author w-max">
+                    <a
+                      key={author.name}
+                      href={`/autore/${encodeURIComponent(author.name)}`}
+                      className="author w-max"
+                    >
                       <img src={"/img/creators/" + author.img + ".avif"} />
                       <p>{author.name}</p>
-                    </div>
+                    </a>
                   ))
                 )}
 

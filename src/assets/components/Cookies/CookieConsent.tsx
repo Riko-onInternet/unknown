@@ -1,44 +1,29 @@
 "use client"; // Aggiungi questa linea
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCookie } from "@/assets/components/Cookies/CookieProvider";
+import Image from "next/image";
 
 export default function CookieConsent() {
-  const {
-    consent,
-    giveConsent,
-    isSubtitlesEnabled,
-    setIsSubtitlesEnabled,
-    audioLanguage,
-    setAudioLanguage,
-  } = useCookie();
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (consent !== null) {
-      setIsVisible(!consent);
-    }
-  }, [consent]);
+  const { consent, giveConsent, setConsent } = useCookie();
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleAccept = () => {
-    giveConsent();
     setIsVisible(false);
-
     setTimeout(() => {
-      const cookieModal = document.getElementById("cookie-modal");
-      cookieModal?.classList.add("hidden");
+      giveConsent();
     }, 300);
   };
 
   const handleDecline = () => {
     setIsVisible(false);
     setTimeout(() => {
-      const cookieModal = document.getElementById("cookie-modal");
-      cookieModal?.classList.add("hidden");
+      setConsent(false);
+      localStorage.setItem("cookieConsent", JSON.stringify(false));
     }, 300);
   };
 
-  if (consent === null) return null;
+  if (consent === true || consent === null) return null;
 
   return (
     <div
@@ -46,7 +31,13 @@ export default function CookieConsent() {
       id="cookie-modal"
     >
       <div className="container-cookie-icon w-full flex justify-center">
-        <img src="/logo/full.png" alt="Logo" className="w-full px-4" />
+        <Image
+          src="/logo/full.png"
+          alt="Logo"
+          className="w-full px-4"
+          width={300}
+          height={37}
+        />
       </div>
 
       {/* Testo */}

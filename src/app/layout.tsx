@@ -8,7 +8,7 @@ import KeyBlocker from "@/assets/components/KeyBlock";
 import LoadingOverlay from "@/assets/components/loadingOverlay";
 
 export const metadata: Metadata = {
-  title: "Unknown",
+  title: "unKnown",
   description: `Il nostro motto è: "Facciamo scoprire lo sconosciuto"`,
   manifest: "/manifest.json",
   robots: "noindex, nofollow",
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it" className="antialiased dark" suppressHydrationWarning>
-      <body className="h-screen">
+      <body className="min-h-[100dvh]">
         <LoadingOverlay />
         <CookieProvider>
           <main className="margin-menus">

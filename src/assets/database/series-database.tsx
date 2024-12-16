@@ -6,6 +6,23 @@ const seriesDatabase = [
       {
         name: "Gooseworx",
         img: "gooseworx",
+        autorImgs: [
+          {
+            urlImg: "maxresdefault.jpg",
+          },
+          {
+            urlImg:
+              "MV5BMjJkZTg5M2MtYzc1Ny00NTcyLWI3MDctMzU1NWM4NGQ1YzM2XkEyXkFqcGc@._V1_FMjpg_UX1258_.jpg",
+          },
+          {
+            urlImg:
+              "MV5BN2M2YzlmZWYtZTFkOC00OGNkLWJlOGMtNmZjYmY4ODFkMTJhXkEyXkFqcGc@._V1_FMjpg_UX1280_.jpg",
+          },
+          {
+            urlImg:
+              "MV5BZGU2ZGQ0YzgtOTE3Zi00MDkxLWE5YzUtMGJjYWUwNTM2MDA4XkEyXkFqcGc@._V1_FMjpg_UX344_.jpg",
+          },
+        ],
       },
     ],
     linkName: "the_amazing_digital_circus",
@@ -43,7 +60,7 @@ const seriesDatabase = [
         id: "Inglese",
       },
     ],
-    IMDbID: "tt1234567",
+    IMDbID: "tt27610198",
     bg: "TADC_bg",
     m3u8: "tadc.m3u8",
     cast: [
@@ -268,8 +285,8 @@ const seriesDatabase = [
       {
         start: "2021",
         end: "2024",
-        status: "completed"
-      }
+        status: "completed",
+      },
     ],
     seasons: 1,
     sinossi:
@@ -281,8 +298,8 @@ const seriesDatabase = [
     linguage: [
       {
         name: "Inglese",
-        id: "Inglese"
-      }
+        id: "Inglese",
+      },
     ],
     audio: [
       {
