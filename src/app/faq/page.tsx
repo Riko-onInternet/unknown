@@ -1,4 +1,4 @@
-import Header from "@/assets/components/Header";
+import Header from "@/assets/components/Header/Header";
 
 export default function Faq() {
   return (
