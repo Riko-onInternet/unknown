@@ -13,7 +13,7 @@
     "@nextui-org/react": "^2.4.6",
     "framer-motion": "^11.11.9",
     "hls.js": "^1.5.17",
-    "next": "14.2.9",
+    "next": "14.2.35",
     "next-cloudinary": "^6.16.0",
     "react": "^18",
     "react-dom": "^18",
